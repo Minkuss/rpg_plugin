@@ -1,5 +1,6 @@
 package me.minkuss.rpg_plugin;
 
+import jdk.vm.ci.code.Register;
 import me.minkuss.rpg_plugin.commands.GiveClassCommand;
 import me.minkuss.rpg_plugin.commands.SetClassCommand;
 import me.minkuss.rpg_plugin.commands.ShowExpCommand;
@@ -14,24 +15,32 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Rpg_plugin extends JavaPlugin {
 
+    private final PluginManager _plugin_manager = getServer().getPluginManager();
+    private final Server _server = getServer();
+
     @Override
     public void onEnable() {
-        PluginManager pm = getServer().getPluginManager();
-        Server srv = getServer();
-        saveConfig();
-        srv.getPluginCommand("setrole").setExecutor(new SetClassCommand(this));
-        srv.getPluginCommand("giverole").setExecutor(new GiveClassCommand(this));
-        pm.registerEvents(new PlayersKillListener(this), this);
-        pm.registerEvents(new JoinPlayerListener(this), this);
-        pm.registerEvents(new PlayerBrakeBlockListener(this), this);
-        pm.registerEvents(new ScoutEventListener(this), this);
-
-        srv.getPluginCommand("showexp").setExecutor(new ShowExpCommand(this));
-        srv.getPluginCommand("showlevel").setExecutor(new ShowLevelCommand(this));
+        RegisterEvents();
+        SetCommands();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        saveConfig();
     }
+
+    private void RegisterEvents() {
+        _plugin_manager.registerEvents(new PlayersKillListener(this), this);
+        _plugin_manager.registerEvents(new JoinPlayerListener(this), this);
+        _plugin_manager.registerEvents(new PlayerBrakeBlockListener(this), this);
+        _plugin_manager.registerEvents(new ScoutEventListener(this), this);
+    }
+
+    private void SetCommands() {
+        _server.getPluginCommand("setrole").setExecutor(new SetClassCommand(this));
+        _server.getPluginCommand("giverole").setExecutor(new GiveClassCommand(this));
+        _server.getPluginCommand("showexp").setExecutor(new ShowExpCommand(this));
+        _server.getPluginCommand("showlevel").setExecutor(new ShowLevelCommand(this));
+    }
+
 }
