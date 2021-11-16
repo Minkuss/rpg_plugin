@@ -67,6 +67,9 @@ public class GiveRoleCommand implements CommandExecutor {
         config.createSection("players." + player.getUniqueId() + ".class.skills.sneaky-crouch");
         config.set("players." + player.getUniqueId() + ".class.skills.sneaky-crouch.opened", true);
 
+        config.createSection("players." + player.getUniqueId() + ".class.skills.rat");
+        config.set("players." + player.getUniqueId() + ".class.skills.rat.opened", true);
+
         _plugin.saveConfig();
     }
 

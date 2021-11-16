@@ -7,10 +7,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ScoutEventListener implements Listener {
 
@@ -60,5 +66,24 @@ public class ScoutEventListener implements Listener {
 
         }
 
+    }
+    @EventHandler
+    public  void onEntityDamageEntity(EntityDamageByEntityEvent event) {
+        if (event.getEntity() instanceof  Player && event.getDamager() instanceof  Player) {
+            Player damager = (Player) event.getDamager();
+            Player entity = (Player) event.getEntity();
+            FileConfiguration config = _plugin.getConfig();
+            boolean isScout = config.getString("players." + damager.getUniqueId() + ".class.name").equals("разведчик");
+            boolean isSkillOpened = config.getBoolean("players." + damager.getUniqueId() + ".class.skills.rat.opened");
+            if (isScout && isSkillOpened && damager.isSneaking() && damager.hasPotionEffect(PotionEffectType.INVISIBILITY)) {
+                damager.sendMessage("Ты вор получается)))))))))");
+                Inventory inventory_entity = entity.getInventory();
+                Inventory inventory_damager = damager.getInventory();
+                int index = (int)Math.floor(Math.random() * (inventory_entity.getSize()-1));
+                ItemStack item = inventory_entity.getItem(index);
+                inventory_damager.addItem(item);
+                inventory_entity.removeItem(item);
+            }
+        }
     }
 }
