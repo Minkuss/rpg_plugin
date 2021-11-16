@@ -1,0 +1,10 @@
+name: Rpg_plugin
+version: '${project.version}'
+main: me.minkuss.rpg_plugin.Rpg_plugin
+api-version: 1.17
+commands:
+  giverole:
+  setrole:
+  showexp:
+  showlevel:
+
