@@ -7,6 +7,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class CooldownCounter extends BukkitRunnable {
 
+    private final FileConfiguration _config;
+
     private final Rpg_plugin _plugin;
     private final Player _player;
 
@@ -16,19 +18,27 @@ public class CooldownCounter extends BukkitRunnable {
         _player = player;
         _plugin = plugin;
         _skill = skill;
+        _config = plugin.getConfig();
 
-        Long cd =plugin.getConfig().getLong("players." + _player.getUniqueId() + ".class." + _skill + ".kd");
-        plugin.getConfig().set("players." + _player.getUniqueId() + ".class." + _skill + "time-left", cd);
+        long time_left = _config.getLong("players." + _player.getUniqueId() + ".class.skills." + _skill + ".time-left");
+        long cd;
+
+        if(time_left > 0)
+            cd = time_left;
+        else
+            cd = plugin.getConfig().getLong("players." + _player.getUniqueId() + ".class.skills." + _skill + ".cd");
+
+        _config.set("players." + _player.getUniqueId() + ".class.skills." + _skill + ".time-left", cd);
     }
 
     @Override
     public void run() {
-        FileConfiguration config = _plugin.getConfig();
-        Long left_time = config.getLong("players." + _player.getUniqueId() + ".class." + _skill + ".time-left");
+        long time_left = _config.getLong("players." + _player.getUniqueId() + ".class.skills." + _skill + ".time-left");
 
-        if(left_time > 0) {
-            left_time--;
-            config.set("players." + _player.getUniqueId() + ".class." + _skill + ".time-left", left_time);
+        if(time_left > 0 && _player.isOnline()) {
+            time_left--;
+            _config.set("players." + _player.getUniqueId() + ".class.skills." + _skill + ".time-left", time_left);
+            _plugin.saveConfig();
         }
         else {
             cancel();

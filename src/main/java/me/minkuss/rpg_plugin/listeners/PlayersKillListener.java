@@ -21,40 +21,38 @@ public class PlayersKillListener implements Listener {
 
     @EventHandler
     public void onKillPlayer(EntityDeathEvent event) {
-        if (event.getEntity().getKiller() != null) {
-            if (!(event.getEntity().getKiller() instanceof Player)) {
-                return;
+        if (event.getEntity().getKiller() != null && event.getEntity().getKiller() instanceof Player) {
+
+            Player player = event.getEntity().getKiller();
+            Entity victim = event.getEntity();
+
+            int exp = GetVictimExp(victim.getType());
+
+            if (exp != 0) {
+                FileConfiguration config = _plugin.getConfig();
+
+                int level = config.getInt("players." + player.getUniqueId() + ".level");
+                int start_value = config.getInt("exp-info.start-value");
+                int level_scale = config.getInt("exp-info.level-scale");
+                int newLevelBarrier = start_value * (level_scale * level);
+
+                exp += config.getInt("players." + player.getUniqueId() + ".exp");
+
+                if (newLevelBarrier <= exp) {
+                    exp -= newLevelBarrier;
+
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
+                    level++;
+                    player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
+                }
+
+                newLevelBarrier = start_value * (level_scale * level);
+                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Your experience: " + exp + "/" + newLevelBarrier);
+
+                config.set("players." + player.getUniqueId() + ".level", level);
+                config.set("players." + player.getUniqueId() + ".exp", exp);
+                _plugin.saveConfig();
             }
-        }
-        Player player = event.getEntity().getKiller();
-        Entity victim  = event.getEntity();
-
-        int exp = GetVictimExp(victim.getType());
-
-        if(exp != 0) {
-            FileConfiguration config = _plugin.getConfig();
-
-            int level = config.getInt("players." + player.getUniqueId() + ".level");
-            int start_value = config.getInt("exp-info.start-value");
-            int level_scale = config.getInt("exp-info.level-scale");
-            int newLevelBarrier = start_value * (level_scale * level);
-
-            exp += config.getInt("players." + player.getUniqueId() + ".exp");
-
-            if(newLevelBarrier <= exp) {
-                exp -= newLevelBarrier;
-
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
-                level++;
-                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
-            }
-
-            newLevelBarrier = start_value * (level_scale * level);
-            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Your experience: " + exp + "/" + newLevelBarrier);
-
-            config.set("players." + player.getUniqueId() + ".level", level);
-            config.set("players." + player.getUniqueId() + ".exp", exp);
-            _plugin.saveConfig();
         }
     }
 

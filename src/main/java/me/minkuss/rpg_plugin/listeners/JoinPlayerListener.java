@@ -1,10 +1,16 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
+import me.minkuss.rpg_plugin.runnables.CooldownCounter;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.io.File;
+import java.util.List;
 
 public class JoinPlayerListener implements Listener {
 
@@ -16,15 +22,26 @@ public class JoinPlayerListener implements Listener {
 
     @EventHandler
     public void onJoinServer(PlayerJoinEvent event) {
+        FileConfiguration config = _plugin.getConfig();
         Player player = event.getPlayer();
         String id = _plugin.getConfig().getString("players." + player.getUniqueId());
 
         if(id == null) {
-            _plugin.getConfig().set("players." + player.getUniqueId() + ".exp", 0);
-            _plugin.getConfig().set("players." + player.getUniqueId() + ".level", 1);
-            _plugin.getConfig().set("players." + player.getUniqueId() + ".class", null);
-            _plugin.getConfig().set("players." + player.getUniqueId() + ".class.skills.invisibility.last-use", null);
+            config.set("players." + player.getUniqueId() + ".exp", 0);
+            config.set("players." + player.getUniqueId() + ".level", 1);
+            config.createSection("players." + player.getUniqueId() + ".class");
+
             _plugin.saveConfig();
+        }
+        else if(config.contains("players." + player.getUniqueId() + ".class.skills")) {
+            String role = config.getString("players." + player.getUniqueId() + ".class.name");
+            List<String> skills = config.getStringList("role-skills." + role);
+
+            for(String skill : skills) {
+                if(config.getLong("players." + player.getUniqueId() + ".class.skills." + skill + ".time-left") > 0) {
+                    new CooldownCounter(player, _plugin, skill).runTaskTimer(_plugin, 0, 20);
+                }
+            }
         }
     }
 

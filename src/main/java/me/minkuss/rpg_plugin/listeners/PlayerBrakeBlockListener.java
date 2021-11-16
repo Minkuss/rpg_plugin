@@ -17,13 +17,14 @@ public class PlayerBrakeBlockListener implements Listener {
 
     @EventHandler
     public void onBreakBlock(BlockBreakEvent event) {
-        FileConfiguration config = _plugin.getConfig();
 
-        Player player = event.getPlayer();
         Block block = event.getBlock();
-
         int exp = GetBlockExp(block);
-        if (exp != 0 ){
+
+        if(exp != 0 ) {
+            FileConfiguration config = _plugin.getConfig();
+            Player player = event.getPlayer();
+
             int level = config.getInt("players." + player.getUniqueId() + ".level");
             int start_value = config.getInt("exp-info.start-value");
             int level_scale = config.getInt("exp-info.level-scale");
