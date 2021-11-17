@@ -34,7 +34,7 @@ public class PlayerBrakeBlockListener implements Listener {
 
             if(newLevelBarrier <= exp) {
                 exp -= newLevelBarrier;
-
+                
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
                 level++;
                 player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
