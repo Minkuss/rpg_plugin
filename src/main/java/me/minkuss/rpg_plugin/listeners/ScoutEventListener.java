@@ -73,16 +73,25 @@ public class ScoutEventListener implements Listener {
             Player damager = (Player) event.getDamager();
             Player entity = (Player) event.getEntity();
             FileConfiguration config = _plugin.getConfig();
+
             boolean isScout = config.getString("players." + damager.getUniqueId() + ".class.name").equals("разведчик");
             boolean isSkillOpened = config.getBoolean("players." + damager.getUniqueId() + ".class.skills.rat.opened");
-            if (isScout && isSkillOpened && damager.isSneaking() && damager.hasPotionEffect(PotionEffectType.INVISIBILITY)) {
+
+            boolean hasInvisibility = damager.hasPotionEffect(PotionEffectType.INVISIBILITY);
+            boolean isCoolDowned = config.getLong("players." + damager.getUniqueId() + ".skills.rat.time-left") == 0;
+
+            if (isScout && isSkillOpened && damager.isSneaking() && hasInvisibility && isCoolDowned) {
                 damager.sendMessage("Ты вор получается)))))))))");
                 Inventory inventory_entity = entity.getInventory();
                 Inventory inventory_damager = damager.getInventory();
+
                 int index = (int)Math.floor(Math.random() * (inventory_entity.getSize()-1));
                 ItemStack item = inventory_entity.getItem(index);
-                inventory_damager.addItem(item);
+
                 inventory_entity.removeItem(item);
+                inventory_damager.addItem(item);
+
+                new CooldownCounter(damager, _plugin, "rat").runTaskTimer(_plugin, 0, 20);
             }
         }
     }
