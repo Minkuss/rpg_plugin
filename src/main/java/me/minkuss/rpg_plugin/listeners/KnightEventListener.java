@@ -29,12 +29,20 @@ public class KnightEventListener implements Listener {
                 Damageable entity = ((Damageable) event.getEntity());
                 Player player = (Player) event.getDamager();
 
-                boolean isSkillOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.berserk.opened");
+                boolean isBerserkOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.berserk.opened");
+                boolean isLifeStealOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.lifesteal.opened");
 
-                if(isSkillOpened) {
-                    double hp = player.getHealth();
-                    double damage = (20 - hp) / 2;
+                double hp = player.getHealth();
+                double damage = (20 - hp) / 2;
+
+                if(isBerserkOpened) {
                     entity.setHealth(entity.getHealth() - damage);
+                }
+                if (isLifeStealOpened) {
+                    boolean chance = Math.floor(Math.random())*100 <= player.getLastDamage() + damage;
+                    if (chance) {
+                        player.setHealth(hp + 2);
+                    }
                 }
             }
         }
