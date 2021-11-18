@@ -26,12 +26,16 @@ public class LevelupListener implements Listener {
             UUID id = event.getPlayer().getUniqueId();
             Player player = event.getPlayer();
             if (role.equals("разведчик")) {
-                config.set("players." + id + ".class.skills.sneaky-crouch.opened", true);
-                player.sendMessage(ChatColor.GOLD + "Вы открыли способность: скрытное подкрадывание");
+                if (config.getBoolean("players." + id + ".class.skills.sneaky-crouch.opened") == false) {
+                    config.set("players." + id + ".class.skills.sneaky-crouch.opened", true);
+                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: скрытное подкрадывание");
+                }
             }
             else if (role.equals("рыцарь")) {
-                config.set("players." + id + ".class.skills.berserk.opened", true);
-                player.sendMessage(ChatColor.GOLD + "Вы открыли способность: берсерк");
+                if (config.getBoolean("players." + id + ".class.skills.berserk.opened") == false) {
+                    config.set("players." + id + ".class.skills.berserk.opened", true);
+                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: берсерк");
+                }
             }
         }
         else if (event.getLevel() == 10) {
@@ -40,12 +44,16 @@ public class LevelupListener implements Listener {
             UUID id = event.getPlayer().getUniqueId();
             Player player = event.getPlayer();
             if (role.equals("разведчик")) {
-                config.set("players." + id + ".class.skills.invisibility.opened", true);
-                player.sendMessage(ChatColor.GOLD + "Вы открыли способность: невидимость");
+                if (config.getBoolean("players." + id + ".class.skills.invisibility.opened") == false) {
+                    config.set("players." + id + ".class.skills.invisibility.opened", true);
+                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: невидимость");
+                }
             }
             else if (role.equals("рыцарь")) {
-                config.set("players." + id + ".class.skills.lifesteal.opened", true);
-                player.sendMessage(ChatColor.GOLD + "Вы открыли способность: вампиризм");
+                if (config.getBoolean("players." + id + ".class.skills.lifesteal.opened") == false) {
+                    config.set("players." + id + ".class.skills.lifesteal.opened", true);
+                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: вампиризм");
+                }
             }
         }
         else if (event.getLevel() == 15) {
@@ -54,8 +62,10 @@ public class LevelupListener implements Listener {
             UUID id = event.getPlayer().getUniqueId();
             Player player = event.getPlayer();
             if (role.equals("разведчик")) {
-                config.set("players." + id + ".class.skills.rat.opened", true);
-                player.sendMessage(ChatColor.GOLD + "Вы открыли способность: кража");
+                if (config.getBoolean("players." + id + ".class.skills.rat.opened") == false) {
+                    config.set("players." + id + ".class.skills.rat.opened", true);
+                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: кража");
+                }
             }
         }
         _plugin.saveConfig();
