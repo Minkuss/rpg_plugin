@@ -38,7 +38,7 @@ public class SetRoleCommand implements CommandExecutor {
             for (String role : roles) {
                 if (role.equals(args[1])) {
                     _plugin.getConfig().set("players." + playerTest.getUniqueId() + ".class.name", args[1]);
-                    _plugin.getConfig().set("players." + playerTest.getUniqueId() + ".class.opened?", true);
+                    _plugin.getConfig().set("players." + playerTest.getUniqueId() + ".class.opened", false);
                     _plugin.saveConfig();
                     playerTest.sendMessage(ChatColor.GREEN + "Вам присвоена роль: " + args[1]);
                     return  true;

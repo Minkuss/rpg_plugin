@@ -7,4 +7,5 @@ commands:
   setrole:
   showexp:
   showlevel:
+  showrole:
 

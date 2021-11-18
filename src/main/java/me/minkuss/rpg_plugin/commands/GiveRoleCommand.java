@@ -52,9 +52,9 @@ public class GiveRoleCommand implements CommandExecutor {
         FileConfiguration config = _plugin.getConfig();
         config.set("players." + player.getUniqueId() + ".class.name", "рыцарь");
         config.createSection("players." + player.getUniqueId() + ".class.skills.berserk");
-        config.set("players." + player.getUniqueId() + ".class.skills.berserk.opened", true);
+        config.set("players." + player.getUniqueId() + ".class.skills.berserk.opened", false);
         config.createSection("players." + player.getUniqueId() + ".class.skills.lifesteal");
-        config.set("players." + player.getUniqueId() + ".class.skills.lifesteal.opened", true);
+        config.set("players." + player.getUniqueId() + ".class.skills.lifesteal.opened", false);
         _plugin.saveConfig();
     }
 
@@ -63,14 +63,14 @@ public class GiveRoleCommand implements CommandExecutor {
         config.set("players." + player.getUniqueId() + ".class.name", "разведчик");
 
         config.createSection("players." + player.getUniqueId() + ".class.skills.invisibility");
-        config.set("players." + player.getUniqueId() + ".class.skills.invisibility.opened", true);
+        config.set("players." + player.getUniqueId() + ".class.skills.invisibility.opened", false);
         config.set("players." + player.getUniqueId() + ".class.skills.invisibility.cd", 60);
 
         config.createSection("players." + player.getUniqueId() + ".class.skills.sneaky-crouch");
-        config.set("players." + player.getUniqueId() + ".class.skills.sneaky-crouch.opened", true);
+        config.set("players." + player.getUniqueId() + ".class.skills.sneaky-crouch.opened", false);
 
         config.createSection("players." + player.getUniqueId() + ".class.skills.rat");
-        config.set("players." + player.getUniqueId() + ".class.skills.rat.opened", true);
+        config.set("players." + player.getUniqueId() + ".class.skills.rat.opened", false);
         config.set("players." + player.getUniqueId() + ".class.skills.rat.cd", 60);
 
         _plugin.saveConfig();

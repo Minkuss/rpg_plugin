@@ -1,9 +1,7 @@
 package me.minkuss.rpg_plugin;
 
-import me.minkuss.rpg_plugin.commands.GiveRoleCommand;
-import me.minkuss.rpg_plugin.commands.SetRoleCommand;
-import me.minkuss.rpg_plugin.commands.ShowExpCommand;
-import me.minkuss.rpg_plugin.commands.ShowLevelCommand;
+import me.minkuss.rpg_plugin.commands.*;
+import me.minkuss.rpg_plugin.events.LevelupEvent;
 import me.minkuss.rpg_plugin.listeners.*;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +29,7 @@ public final class Rpg_plugin extends JavaPlugin {
         _plugin_manager.registerEvents(new PlayerBrakeBlockListener(this), this);
         _plugin_manager.registerEvents(new ScoutEventListener(this), this);
         _plugin_manager.registerEvents(new KnightEventListener(this), this);
+        _plugin_manager.registerEvents(new LevelupListener(this), this);
     }
 
     private void SetCommands() {
@@ -38,6 +37,7 @@ public final class Rpg_plugin extends JavaPlugin {
         _server.getPluginCommand("giverole").setExecutor(new GiveRoleCommand(this));
         _server.getPluginCommand("showexp").setExecutor(new ShowExpCommand(this));
         _server.getPluginCommand("showlevel").setExecutor(new ShowLevelCommand(this));
+        _server.getPluginCommand("showrole").setExecutor(new ShowRoleCommand(this));
     }
 
 }

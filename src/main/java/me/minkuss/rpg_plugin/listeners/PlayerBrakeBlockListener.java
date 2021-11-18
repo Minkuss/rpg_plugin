@@ -1,6 +1,7 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
+import me.minkuss.rpg_plugin.events.LevelupEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -46,6 +47,7 @@ public class PlayerBrakeBlockListener implements Listener {
             config.set("players." + player.getUniqueId() + ".level", level);
             config.set("players." + player.getUniqueId() + ".exp", exp);
             _plugin.saveConfig();
+            _plugin.getServer().getPluginManager().callEvent(new LevelupEvent(player, level));
         }
     }
 
