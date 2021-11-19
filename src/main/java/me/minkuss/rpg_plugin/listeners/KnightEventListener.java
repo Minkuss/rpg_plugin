@@ -1,12 +1,14 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 
 public class KnightEventListener implements Listener {
 

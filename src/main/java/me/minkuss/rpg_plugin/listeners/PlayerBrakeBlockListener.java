@@ -1,10 +1,8 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
-import me.minkuss.rpg_plugin.events.LevelupEvent;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
-import org.bukkit.block.Block;
+import me.minkuss.rpg_plugin.events.GainedExpEvent;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,41 +17,16 @@ public class PlayerBrakeBlockListener implements Listener {
     @EventHandler
     public void onBreakBlock(BlockBreakEvent event) {
 
-        Block block = event.getBlock();
+        Player player = event.getPlayer();
+        Material block = event.getBlock().getType();
         int exp = GetBlockExp(block);
 
-        if(exp != 0 ) {
-            FileConfiguration config = _plugin.getConfig();
-            Player player = event.getPlayer();
-
-            int level = config.getInt("players." + player.getUniqueId() + ".level");
-            int start_value = config.getInt("exp-info.start-value");
-            int level_scale = config.getInt("exp-info.level-scale");
-            int newLevelBarrier = start_value * (level_scale * level);
-
-            exp += config.getInt("players." + player.getUniqueId() + ".exp");
-
-            if(newLevelBarrier <= exp) {
-                exp -= newLevelBarrier;
-                
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
-                level++;
-                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
-            }
-
-            newLevelBarrier = start_value * (level_scale * level);
-            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Your experience: " + exp + "/" + newLevelBarrier);
-
-            config.set("players." + player.getUniqueId() + ".level", level);
-            config.set("players." + player.getUniqueId() + ".exp", exp);
-            _plugin.saveConfig();
-            _plugin.getServer().getPluginManager().callEvent(new LevelupEvent(player, level));
-        }
+        _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, exp));
     }
 
-    private int GetBlockExp(Block block) {
+    private int GetBlockExp(Material block) {
         FileConfiguration config = _plugin.getConfig();
-        switch(block.getType()) {
+        switch(block) {
             case DIAMOND_ORE:
                 return config.getInt("exp-info.ores.diamond");
             case IRON_ORE:

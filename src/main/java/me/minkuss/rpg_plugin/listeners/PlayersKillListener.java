@@ -1,9 +1,9 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
-import me.minkuss.rpg_plugin.events.LevelupEvent;
+import me.minkuss.rpg_plugin.events.GainedExpEvent;
+import me.minkuss.rpg_plugin.events.LevelUpEvent;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -26,36 +26,10 @@ public class PlayersKillListener implements Listener {
         if (event.getEntity().getKiller() != null && event.getEntity().getKiller() instanceof Player) {
 
             Player player = event.getEntity().getKiller();
-            Entity victim = event.getEntity();
+            EntityType victim = event.getEntity().getType();
 
-            int exp = GetVictimExp(victim.getType());
-
-            if (exp != 0) {
-                FileConfiguration config = _plugin.getConfig();
-
-                int level = config.getInt("players." + player.getUniqueId() + ".level");
-                int start_value = config.getInt("exp-info.start-value");
-                int level_scale = config.getInt("exp-info.level-scale");
-                int newLevelBarrier = start_value * (level_scale * level);
-
-                exp += config.getInt("players." + player.getUniqueId() + ".exp");
-
-                if (newLevelBarrier <= exp) {
-                    exp -= newLevelBarrier;
-
-                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
-                    level++;
-                    player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
-                }
-
-                newLevelBarrier = start_value * (level_scale * level);
-                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Your experience: " + exp + "/" + newLevelBarrier);
-
-                config.set("players." + player.getUniqueId() + ".level", level);
-                config.set("players." + player.getUniqueId() + ".exp", exp);
-                _plugin.saveConfig();
-                _plugin.getServer().getPluginManager().callEvent(new LevelupEvent(player, level));
-            }
+            int exp = GetVictimExp(victim);
+            _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, exp));
         }
     }
 

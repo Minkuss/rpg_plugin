@@ -1,7 +1,7 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
-import me.minkuss.rpg_plugin.events.LevelupEvent;
+import me.minkuss.rpg_plugin.events.LevelUpEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -10,16 +10,15 @@ import org.bukkit.event.Listener;
 
 import java.util.UUID;
 
-public class LevelupListener implements Listener {
+public class LevelUpListener implements Listener {
     private final Rpg_plugin _plugin;
 
-    public LevelupListener(Rpg_plugin plugin) {
+    public LevelUpListener(Rpg_plugin plugin) {
         _plugin = plugin;
     }
 
     @EventHandler
-
-    public void onPlayerLevelup(LevelupEvent event) {
+    public void onPlayerLevelUp(LevelUpEvent event) {
         if (event.getLevel() == 5) {
             FileConfiguration config = _plugin.getConfig();
             String role = config.getString("players." + event.getPlayer().getUniqueId() + ".class.name");
