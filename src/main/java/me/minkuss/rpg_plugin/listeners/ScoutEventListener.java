@@ -25,10 +25,11 @@ public class ScoutEventListener implements Listener {
 
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
-        if (_plugin.getConfig().getString("players." + event.getPlayer().getUniqueId() + ".class") == null) {
-            return;
-        }
-        boolean isScout = _plugin.getConfig().getString("players." + event.getPlayer().getUniqueId() + ".class.name").equals("разведчик");
+        boolean isScout = false;
+        String role_name = _plugin.getConfig().getString("players." + event.getPlayer().getUniqueId() + ".class.name");
+
+        if(role_name != null)
+            isScout = role_name.equals("разведчик");
 
         if(isScout) {
             FileConfiguration config = _plugin.getConfig();

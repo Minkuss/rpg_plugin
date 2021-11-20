@@ -1,14 +1,12 @@
 package me.minkuss.rpg_plugin.listeners;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 
 public class KnightEventListener implements Listener {
 
@@ -23,7 +21,11 @@ public class KnightEventListener implements Listener {
 
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Damageable) {
 
-            boolean isKnight = _plugin.getConfig().getString("players." + event.getDamager().getUniqueId() + ".class.name").equals("рыцарь");
+            boolean isKnight = false;
+            String role_name = _plugin.getConfig().getString("players." + event.getDamager().getUniqueId() + ".class.name");
+
+            if(role_name != null)
+                isKnight = role_name.equals("рыцарь");
 
             if(isKnight) {
                 FileConfiguration config = _plugin.getConfig();

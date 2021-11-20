@@ -19,24 +19,11 @@ public class JoinPlayerListener implements Listener {
 
     @EventHandler
     public void onJoinServer(PlayerJoinEvent event) {
+
         FileConfiguration config = _plugin.getConfig();
         Player player = event.getPlayer();
         String id = _plugin.getConfig().getString("players." + player.getUniqueId());
-        /*
-        Inventory player_inventory = player.getInventory();
-        ItemStack skill_item = new ItemStack(Material.IRON_BLOCK);
-        ItemMeta meta = skill_item.getItemMeta();
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add("NONE");
-        meta.setLore(lore);
-        skill_item.setItemMeta(meta);
 
-        for(byte i = 2; i < 9; i++) {
-            meta.setDisplayName("SKILL_" + (i - 1));
-            skill_item.setItemMeta(meta);
-            player_inventory.setItem(i, skill_item);
-        }
-        */
         if(id == null) {
             config.set("players." + player.getUniqueId() + ".exp", 0);
             config.set("players." + player.getUniqueId() + ".level", 1);

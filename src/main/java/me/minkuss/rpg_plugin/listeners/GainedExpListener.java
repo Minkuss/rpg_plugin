@@ -29,6 +29,8 @@ public class GainedExpListener implements Listener {
             int level_scale = config.getInt("exp-info.level-scale");
             int newLevelBarrier = start_value * (level_scale * level);
 
+            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Experience +" + exp);
+
             exp += config.getInt("players." + player.getUniqueId() + ".exp");
 
             if (newLevelBarrier <= exp) {
@@ -38,9 +40,6 @@ public class GainedExpListener implements Listener {
                 _plugin.getServer().getPluginManager().callEvent(new LevelUpEvent(player, level));
                 player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
             }
-
-            newLevelBarrier = start_value * (level_scale * level);
-            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Your experience: " + exp + "/" + newLevelBarrier);
 
             config.set("players." + player.getUniqueId() + ".level", level);
             config.set("players." + player.getUniqueId() + ".exp", exp);

@@ -19,25 +19,19 @@ public class PlayerBrakeBlockListener implements Listener {
 
         Player player = event.getPlayer();
         Material block = event.getBlock().getType();
-        int exp = GetBlockExp(block);
 
+        int exp = GetBlockExp(block);
         _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, exp));
     }
 
     private int GetBlockExp(Material block) {
         FileConfiguration config = _plugin.getConfig();
-        switch(block) {
-            case DIAMOND_ORE:
-                return config.getInt("exp-info.ores.diamond");
-            case IRON_ORE:
-            case GOLD_ORE:
-            case COPPER_ORE:
-                return config.getInt("exp-info.ores.others");
-            case COAL_ORE:
-                return config.getInt("exp-info.ores.coal");
-            default:
-                return 0;
-        }
+        return switch (block) {
+            case DIAMOND_ORE -> config.getInt("exp-info.ores.diamond");
+            case IRON_ORE, GOLD_ORE, COPPER_ORE -> config.getInt("exp-info.ores.others");
+            case COAL_ORE -> config.getInt("exp-info.ores.coal");
+            default -> 0;
+        };
     }
 
 }

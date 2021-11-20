@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import java.util.UUID;
 
 public class LevelUpListener implements Listener {
+
     private final Rpg_plugin _plugin;
 
     public LevelUpListener(Rpg_plugin plugin) {
