@@ -5,6 +5,8 @@ me\minkuss\rpg_plugin\listeners\PlayersKillListener.class
 me\minkuss\rpg_plugin\listeners\JoinPlayerListener.class
 me\minkuss\rpg_plugin\commands\GiveRoleCommand.class
 me\minkuss\rpg_plugin\events\LevelUpEvent.class
+me\minkuss\rpg_plugin\tab_completers\GiveRoleTabCompleter.class
+me\minkuss\rpg_plugin\RoleManager.class
 me\minkuss\rpg_plugin\listeners\GainedExpListener.class
 me\minkuss\rpg_plugin\listeners\PlayerBrakeBlockListener$1.class
 me\minkuss\rpg_plugin\listeners\KnightEventListener.class

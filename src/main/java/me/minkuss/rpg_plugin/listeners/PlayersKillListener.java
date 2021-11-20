@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 public class PlayersKillListener implements Listener {
-
     private final Rpg_plugin _plugin;
 
     public PlayersKillListener(Rpg_plugin plugin) {

@@ -6,7 +6,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class GainedExpEvent extends Event implements Cancellable {
-
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCanceled = false;
 

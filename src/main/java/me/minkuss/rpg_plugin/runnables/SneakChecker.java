@@ -6,7 +6,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class SneakChecker extends BukkitRunnable {
-
     Player _player;
 
     public SneakChecker(Player player) {

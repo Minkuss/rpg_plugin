@@ -16,7 +16,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class ScoutEventListener implements Listener {
-
     private final Rpg_plugin _plugin;
 
     public ScoutEventListener(Rpg_plugin plugin) {
@@ -70,12 +69,15 @@ public class ScoutEventListener implements Listener {
     }
     @EventHandler
     public  void onEntityDamageEntity(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof  Player && event.getDamager() instanceof  Player) {
-            Player damager = (Player) event.getDamager();
-            Player entity = (Player) event.getEntity();
+        if (event.getEntity() instanceof Player entity && event.getDamager() instanceof Player damager) {
             FileConfiguration config = _plugin.getConfig();
 
-            boolean isScout = config.getString("players." + damager.getUniqueId() + ".class.name").equals("разведчик");
+            boolean isScout = false;
+            String role_name = _plugin.getConfig().getString("players." + event.getDamager().getUniqueId() + ".class.name");
+
+            if(role_name != null)
+                isScout = role_name.equals("разведчик");
+
             boolean isSkillOpened = config.getBoolean("players." + damager.getUniqueId() + ".class.skills.rat.opened");
 
             boolean hasInvisibility = damager.hasPotionEffect(PotionEffectType.INVISIBILITY);

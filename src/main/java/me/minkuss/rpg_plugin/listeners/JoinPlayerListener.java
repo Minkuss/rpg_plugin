@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.List;
 
 public class JoinPlayerListener implements Listener {
-
     private final Rpg_plugin _plugin;
 
     public JoinPlayerListener(Rpg_plugin plugin) {

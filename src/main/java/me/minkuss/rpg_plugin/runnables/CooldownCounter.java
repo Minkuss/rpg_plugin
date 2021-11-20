@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class CooldownCounter extends BukkitRunnable {
-
     private final FileConfiguration _config;
 
     private final Rpg_plugin _plugin;

@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class KnightEventListener implements Listener {
-
     private final Rpg_plugin _plugin;
 
     public KnightEventListener(Rpg_plugin plugin) {
