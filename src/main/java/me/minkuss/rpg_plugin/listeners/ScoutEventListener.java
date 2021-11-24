@@ -42,13 +42,15 @@ public class ScoutEventListener implements Listener {
 
     @EventHandler
     public void onEntityGotDamage(EntityDamageEvent event) {
+        if(event.getEntity() instanceof Player player) {
+            boolean isScout = false;
+            String role_name = _plugin.getConfig().getString("players." + player.getUniqueId() + ".class.name");
 
-        if(event.getEntity() instanceof Player) {
-            boolean isScout = _plugin.getConfig().getString("players." + event.getEntity().getUniqueId() + ".class.name").equals("разведчик");
+            if(role_name != null)
+                isScout = role_name.equals("разведчик");
 
             if (isScout) {
                 FileConfiguration config = _plugin.getConfig();
-                Player player = (Player) event.getEntity();
 
                 double hp = player.getHealth() - event.getDamage();
 

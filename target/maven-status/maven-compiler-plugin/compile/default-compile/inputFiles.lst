@@ -3,6 +3,7 @@ C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\Lev
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\commands\GiveRoleCommand.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\events\GainedExpEvent.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\PlayersKillListener.java
+C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\RoleManager.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\events\LevelUpEvent.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\ScoutEventListener.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\KnightEventListener.java
@@ -12,6 +13,7 @@ C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\commands\Show
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\commands\SetRoleCommand.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\JoinPlayerListener.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\commands\ShowRoleCommand.java
+C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\PlayerPickQuest.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\Rpg_plugin.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\listeners\PlayerBrakeBlockListener.java
 C:\dev\IdeaProjects\rpg_plugin\src\main\java\me\minkuss\rpg_plugin\tab_completers\GiveRoleTabCompleter.java

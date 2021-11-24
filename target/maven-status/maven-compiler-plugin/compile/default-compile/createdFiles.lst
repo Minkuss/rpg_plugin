@@ -1,3 +1,4 @@
+me\minkuss\rpg_plugin\listeners\PlayerPickQuest.class
 me\minkuss\rpg_plugin\commands\ShowExpCommand.class
 me\minkuss\rpg_plugin\events\GainedExpEvent.class
 me\minkuss\rpg_plugin\commands\SetRoleCommand.class

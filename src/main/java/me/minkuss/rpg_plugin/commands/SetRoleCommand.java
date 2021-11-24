@@ -18,19 +18,20 @@ public class SetRoleCommand implements CommandExecutor {
     }
     @Override
 
+
     public boolean onCommand(CommandSender sender, Command command, String str, String[] args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(ChatColor.BLACK + "Эту команду может отправить только игрок, чел...");
-            return  false;
+            return false;
         }
 
         if (!player.hasPermission("rpg_plugin.setrole")) {
             player.sendMessage(ChatColor.RED + "У вас нет прав на использование этой команды");
-            return  false;
+            return false;
         }
         if (args.length != 2) {
             sender.sendMessage(ChatColor.RED + "Введите команду полностью");
-            return  false;
+            return false;
         }
 
         Player player_for_set = _plugin.getServer().getPlayer(args[0]);

@@ -30,6 +30,7 @@ public final class Rpg_plugin extends JavaPlugin {
         _plugin_manager.registerEvents(new KnightEventListener(this), this);
         _plugin_manager.registerEvents(new GainedExpListener(this), this);
         _plugin_manager.registerEvents(new LevelUpListener(this), this);
+        _plugin_manager.registerEvents(new PlayerPickQuest(), this);
     }
 
     private void SetCommands() {
