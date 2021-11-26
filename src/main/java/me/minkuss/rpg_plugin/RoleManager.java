@@ -14,6 +14,13 @@ public class RoleManager {
         _config = plugin.getConfig();
     }
 
+    public boolean hasRole(UUID id, String role_name) {
+        if(_plugin.getConfig().getString("players." + id + ".class.name") == null)
+            return false;
+        else
+            return _plugin.getConfig().getString("players." + id + ".class.name").equals(role_name);
+    }
+
     public void setScout(UUID player_id) {
         String class_path = "players." + player_id + ".class";
         int level = _config.getInt("players." + player_id + ".level");

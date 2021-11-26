@@ -1,5 +1,6 @@
 package me.minkuss.rpg_plugin.listeners;
 
+import me.minkuss.rpg_plugin.RoleManager;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Damageable;
@@ -18,19 +19,12 @@ public class KnightEventListener implements Listener {
     @EventHandler
     public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
 
-        if(event.getDamager() instanceof Player && event.getEntity() instanceof Damageable) {
+        if(event.getDamager() instanceof Player player && event.getEntity() instanceof Damageable entity) {
 
-            boolean isKnight = false;
-            String role_name = _plugin.getConfig().getString("players." + event.getDamager().getUniqueId() + ".class.name");
-
-            if(role_name != null)
-                isKnight = role_name.equals("рыцарь");
+            boolean isKnight = new RoleManager(_plugin).hasRole(player.getUniqueId(), "рыцарь");
 
             if(isKnight) {
                 FileConfiguration config = _plugin.getConfig();
-
-                Damageable entity = ((Damageable) event.getEntity());
-                Player player = (Player) event.getDamager();
 
                 boolean isBerserkOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.berserk.opened");
                 boolean isLifeStealOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.lifesteal.opened");

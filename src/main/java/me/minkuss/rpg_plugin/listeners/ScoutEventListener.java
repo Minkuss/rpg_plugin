@@ -1,5 +1,6 @@
 package me.minkuss.rpg_plugin.listeners;
 
+import me.minkuss.rpg_plugin.RoleManager;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import me.minkuss.rpg_plugin.runnables.CooldownCounter;
 import me.minkuss.rpg_plugin.runnables.SneakChecker;
@@ -24,11 +25,8 @@ public class ScoutEventListener implements Listener {
 
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
-        boolean isScout = false;
-        String role_name = _plugin.getConfig().getString("players." + event.getPlayer().getUniqueId() + ".class.name");
 
-        if(role_name != null)
-            isScout = role_name.equals("разведчик");
+        boolean isScout = new RoleManager(_plugin).hasRole(event.getPlayer().getUniqueId(), "разведчик");
 
         if(isScout) {
             FileConfiguration config = _plugin.getConfig();
@@ -43,11 +41,8 @@ public class ScoutEventListener implements Listener {
     @EventHandler
     public void onEntityGotDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player player) {
-            boolean isScout = false;
-            String role_name = _plugin.getConfig().getString("players." + player.getUniqueId() + ".class.name");
 
-            if(role_name != null)
-                isScout = role_name.equals("разведчик");
+            boolean isScout = new RoleManager(_plugin).hasRole(player.getUniqueId(), "разведчик");
 
             if (isScout) {
                 FileConfiguration config = _plugin.getConfig();
@@ -69,16 +64,13 @@ public class ScoutEventListener implements Listener {
         }
 
     }
+
     @EventHandler
     public  void onEntityDamageEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player entity && event.getDamager() instanceof Player damager) {
             FileConfiguration config = _plugin.getConfig();
 
-            boolean isScout = false;
-            String role_name = _plugin.getConfig().getString("players." + event.getDamager().getUniqueId() + ".class.name");
-
-            if(role_name != null)
-                isScout = role_name.equals("разведчик");
+            boolean isScout = new RoleManager(_plugin).hasRole(damager.getUniqueId(), "разведчик");
 
             boolean isSkillOpened = config.getBoolean("players." + damager.getUniqueId() + ".class.skills.rat.opened");
 
