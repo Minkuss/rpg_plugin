@@ -2,12 +2,15 @@ package me.minkuss.rpg_plugin;
 
 import me.minkuss.rpg_plugin.commands.*;
 import me.minkuss.rpg_plugin.listeners.*;
+import me.minkuss.rpg_plugin.listeners.quests.KillListener;
+import me.minkuss.rpg_plugin.listeners.quests.QuestCompleteListener;
 import me.minkuss.rpg_plugin.tab_completers.GiveRoleTabCompleter;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Rpg_plugin extends JavaPlugin {
+
     private final PluginManager _plugin_manager = getServer().getPluginManager();
     private final Server _server = getServer();
 
@@ -30,7 +33,10 @@ public final class Rpg_plugin extends JavaPlugin {
         _plugin_manager.registerEvents(new KnightEventListener(this), this);
         _plugin_manager.registerEvents(new GainedExpListener(this), this);
         _plugin_manager.registerEvents(new LevelUpListener(this), this);
-        _plugin_manager.registerEvents(new PlayerPickQuest(), this);
+        _plugin_manager.registerEvents(new PlayerPickQuest(this), this);
+
+        _plugin_manager.registerEvents(new KillListener(this), this);
+        _plugin_manager.registerEvents(new QuestCompleteListener(this), this);
     }
 
     private void SetCommands() {

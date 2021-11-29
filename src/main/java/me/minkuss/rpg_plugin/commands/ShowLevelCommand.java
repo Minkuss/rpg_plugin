@@ -23,10 +23,12 @@ public class ShowLevelCommand implements CommandExecutor {
 
         if(args.length != 0) {
             player.sendMessage(ChatColor.YELLOW + "[Warning] " + ChatColor.GOLD + "Аргументы не требуются");
-
-            int level = _plugin.getConfig().getInt("players." + player.getUniqueId() + ".level");
-            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Уровень: " + level);
+            return false;
         }
+
+        int level = _plugin.getConfig().getInt("players." + player.getUniqueId() + ".level");
+        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Уровень: " + level);
+
         return true;
     }
 }

@@ -25,6 +25,7 @@ public class RoleManager {
         String class_path = "players." + player_id + ".class";
         int level = _config.getInt("players." + player_id + ".level");
 
+        _config.set(class_path, null);
         _config.set(class_path + ".name", "разведчик");
 
         _config.set(class_path + ".skills.invisibility.opened", level >= 5);
@@ -44,6 +45,7 @@ public class RoleManager {
         String class_path = "players." + player_id + ".class";
         int level = _config.getInt("players." + player_id + ".level");
 
+        _config.set(class_path, null);
         _config.set(class_path + ".name", "рыцарь");
 
         _config.set(class_path + ".skills.lifesteal.opened", level >= 5);
