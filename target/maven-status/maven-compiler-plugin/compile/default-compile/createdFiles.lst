@@ -1,5 +1,4 @@
 me\minkuss\rpg_plugin\events\quests\QuestCompleteEvent.class
-me\minkuss\rpg_plugin\listeners\PlayerPickQuest.class
 me\minkuss\rpg_plugin\events\GainedExpEvent.class
 me\minkuss\rpg_plugin\listeners\quests\QuestCompleteListener.class
 me\minkuss\rpg_plugin\tab_completers\GiveRoleTabCompleter.class
@@ -24,3 +23,4 @@ me\minkuss\rpg_plugin\listeners\LevelUpListener.class
 me\minkuss\rpg_plugin\listeners\ScoutEventListener.class
 me\minkuss\rpg_plugin\listeners\PlayerBrakeBlockListener.class
 me\minkuss\rpg_plugin\listeners\quests\KillListener.class
+me\minkuss\rpg_plugin\listeners\quests\PlayerPickQuest.class

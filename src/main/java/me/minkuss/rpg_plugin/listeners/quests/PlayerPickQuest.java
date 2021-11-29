@@ -1,8 +1,9 @@
-package me.minkuss.rpg_plugin.listeners;
+package me.minkuss.rpg_plugin.listeners.quests;
 
 import me.minkuss.rpg_plugin.QuestManager;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import org.bukkit.ChatColor;
+import org.bukkit.EntityEffect;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -22,11 +23,16 @@ public class PlayerPickQuest implements Listener {
         if(event.getRightClicked() instanceof Villager villager) {
             Player player = event.getPlayer();
 
-            if(new QuestManager(_plugin).setQuest(player.getUniqueId())) {
+            if(new QuestManager(_plugin).trySetQuest(player.getUniqueId()) && villager.getProfession() == Villager.Profession.NONE) {
+                villager.playEffect(EntityEffect.VILLAGER_HAPPY);
                 villager.setCustomName(ChatColor.GOLD + "БИГ БОБ");
                 villager.setCustomNameVisible(true);
 
-                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Получен квест");
+                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Полученно задание");
+            }
+            else {
+                player.sendMessage(ChatColor.YELLOW + "[Warning] " + ChatColor.GOLD + "У тебя уже есть задание");
+                villager.playEffect(EntityEffect.VILLAGER_ANGRY);
             }
 
             event.setCancelled(true);

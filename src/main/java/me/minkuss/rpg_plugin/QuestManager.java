@@ -14,15 +14,14 @@ public class QuestManager {
         _plugin = plugin;
     }
 
-    public boolean setQuest(UUID id) {
-
+    public boolean trySetQuest(UUID id) {
         FileConfiguration config = _plugin.getConfig();
 
-        if(!config.contains("players." + id + ".quest.objective")) {
+        if(!config.contains("players." + id + ".quest")) {
             List<String> params = List.of("kill", EntityType.ZOMBIE.toString());
 
             config.set("players." + id + ".quest.objective", params);
-            config.set("players." + id + ".quest.goal", 3);
+            config.set("players." + id + ".quest.goal", (int)(Math.floor(Math.random() * 10) + 5));
             config.set("players." + id + ".quest.progress", 0);
             _plugin.saveConfig();
 

@@ -3,6 +3,7 @@ package me.minkuss.rpg_plugin;
 import me.minkuss.rpg_plugin.commands.*;
 import me.minkuss.rpg_plugin.listeners.*;
 import me.minkuss.rpg_plugin.listeners.quests.KillListener;
+import me.minkuss.rpg_plugin.listeners.quests.PlayerPickQuest;
 import me.minkuss.rpg_plugin.listeners.quests.QuestCompleteListener;
 import me.minkuss.rpg_plugin.tab_completers.GiveRoleTabCompleter;
 import org.bukkit.Server;

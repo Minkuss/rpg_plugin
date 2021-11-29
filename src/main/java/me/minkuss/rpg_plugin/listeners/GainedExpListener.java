@@ -33,11 +33,13 @@ public class GainedExpListener implements Listener {
 
             exp += config.getInt("players." + player.getUniqueId() + ".exp");
 
-            if (newLevelBarrier <= exp) {
+            while(exp >= newLevelBarrier) {
                 exp -= newLevelBarrier;
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
-                level++;
+                level += 1;
+
                 _plugin.getServer().getPluginManager().callEvent(new LevelUpEvent(player, level));
+
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 1, 1);
                 player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "New level " + level);
             }
 

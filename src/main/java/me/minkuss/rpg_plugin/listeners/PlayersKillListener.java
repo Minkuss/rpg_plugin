@@ -18,12 +18,12 @@ public class PlayersKillListener implements Listener {
 
     @EventHandler
     public void onKillPlayer(EntityDeathEvent event) {
+        Player player = event.getEntity().getKiller();
 
-        if (event.getEntity().getKiller() != null) {
-            Player player = event.getEntity().getKiller();
-            EntityType victim = event.getEntity().getType();
+        if (_plugin.getConfig().contains("players." + player.getUniqueId()) && player != null) {
+            EntityType victim_type = event.getEntity().getType();
+            int exp = GetVictimExp(victim_type);
 
-            int exp = GetVictimExp(victim);
             _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, exp));
         }
     }
@@ -31,11 +31,11 @@ public class PlayersKillListener implements Listener {
     private int GetVictimExp(EntityType type) {
         FileConfiguration config = _plugin.getConfig();
         return switch (type) {
-            case PHANTOM, PLAYER -> config.getInt("exp-info.kill.player");
+            case PLAYER -> config.getInt("exp-info.kill.player");
             case PILLAGER, WITCH, CREEPER,
                  SLIME, HUSK, CAVE_SPIDER,
                  SPIDER, ZOMBIE, ZOMBIE_VILLAGER,
-                 SKELETON, ENDERMAN -> config.getInt("exp-info.kill.monster");
+                 SKELETON, ENDERMAN, PHANTOM -> config.getInt("exp-info.kill.monster");
             default -> 0;
         };
     }

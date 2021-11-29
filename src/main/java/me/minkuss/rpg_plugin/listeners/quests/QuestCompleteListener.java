@@ -3,6 +3,7 @@ package me.minkuss.rpg_plugin.listeners.quests;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import me.minkuss.rpg_plugin.events.GainedExpEvent;
 import me.minkuss.rpg_plugin.events.quests.QuestCompleteEvent;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +26,7 @@ public class QuestCompleteListener implements Listener {
         config.set("players." + player.getUniqueId() + ".quest", null);
         _plugin.saveConfig();
 
+        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание вылненно");
         _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, event.getExp()));
     }
 

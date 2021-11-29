@@ -16,9 +16,8 @@ public class SetRoleCommand implements CommandExecutor {
     public SetRoleCommand(Rpg_plugin plugin) {
         _plugin = plugin;
     }
+
     @Override
-
-
     public boolean onCommand(CommandSender sender, Command command, String str, String[] args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(ChatColor.BLACK + "Эту команду может отправить только игрок, чел...");

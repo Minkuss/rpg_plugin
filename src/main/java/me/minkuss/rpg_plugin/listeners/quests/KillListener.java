@@ -34,8 +34,10 @@ public class KillListener implements Listener {
                 _plugin.getConfig().set("players." + player.getUniqueId() + ".quest.progress", (progress + 1));
                 _plugin.saveConfig();
 
-                if(progress + 1 >= _plugin.getConfig().getInt("players." + player.getUniqueId() + ".quest.goal")) {
-                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, 228));
+                int goal = _plugin.getConfig().getInt("players." + player.getUniqueId() + ".quest.goal");
+
+                if(progress + 1 >= goal) {
+                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, goal * 6));
                 }
             }
         }
