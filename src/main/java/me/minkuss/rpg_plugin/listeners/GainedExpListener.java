@@ -26,7 +26,7 @@ public class GainedExpListener implements Listener {
             int exp = event.getExperience();
             int level = config.getInt("players." + player.getUniqueId() + ".level");
             int level_scale = config.getInt("exp-info.level-scale");
-            int newLevelBarrier = level * level * level_scale;
+            int newLevelBarrier = (int)Math.pow(level, 2) * level_scale;
 
             player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Опыт +" + exp);
 

@@ -4,7 +4,6 @@ me\minkuss\rpg_plugin\listeners\quests\QuestCompleteListener.class
 me\minkuss\rpg_plugin\tab_completers\GiveRoleTabCompleter.class
 me\minkuss\rpg_plugin\RoleManager.class
 me\minkuss\rpg_plugin\QuestManager.class
-me\minkuss\rpg_plugin\listeners\PlayersKillListener$1.class
 me\minkuss\rpg_plugin\commands\ShowLevelCommand.class
 me\minkuss\rpg_plugin\commands\ShowRoleCommand.class
 me\minkuss\rpg_plugin\runnables\CooldownCounter.class
