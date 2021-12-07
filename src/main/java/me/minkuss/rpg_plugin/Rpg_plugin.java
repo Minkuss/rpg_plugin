@@ -49,6 +49,7 @@ public final class Rpg_plugin extends JavaPlugin {
         _server.getPluginCommand("showexp").setExecutor(new ShowExpCommand(this));
         _server.getPluginCommand("showlevel").setExecutor(new ShowLevelCommand(this));
         _server.getPluginCommand("showrole").setExecutor(new ShowRoleCommand(this));
+        _server.getPluginCommand("showquest").setExecutor(new ShowQuestCommand(this));
     }
 
 }

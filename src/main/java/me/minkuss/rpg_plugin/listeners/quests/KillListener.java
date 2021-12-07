@@ -27,10 +27,10 @@ public class KillListener implements Listener {
         List<String> params = _plugin.getConfig().getStringList("players." + player.getUniqueId() + ".quest.objective");
 
         if(params.get(0).equals("kill")) {
-            if(event.getEntity().getType().toString().equals(params.get(1))) {
+            if(event.getEntityType().toString().equals(params.get(1))) {
                 int progress = _plugin.getConfig().getInt("players." + player.getUniqueId() + ".quest.progress");
 
-                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Progress: " + (progress + 1));
+                player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Прогресс задания: " + (progress + 1));
                 _plugin.getConfig().set("players." + player.getUniqueId() + ".quest.progress", (progress + 1));
                 _plugin.saveConfig();
 

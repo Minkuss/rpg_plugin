@@ -20,20 +20,20 @@ public class GiveRoleCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String str, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Эту команду может отправить только игрок, чел...");
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Только игрок может использовать эту команду");
             return  false;
         }
 
-        Player player = (Player)sender;
-
-        if (!player.hasPermission("rpg_plugin.giveclass")) {
+        if (!player.hasPermission("rpg_plugin.giverole")) {
             return  false;
         }
+
         if (args.length == 0) {
             sender.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Мало аргументов");
             return  false;
         }
+
         if (args.length == 1) {
             FileConfiguration config = _plugin.getConfig();
             List<String> roles = config.getStringList("role-names");

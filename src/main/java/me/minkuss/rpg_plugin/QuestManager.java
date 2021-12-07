@@ -18,7 +18,8 @@ public class QuestManager {
         FileConfiguration config = _plugin.getConfig();
 
         if(!config.contains("players." + id + ".quest")) {
-            List<String> params = List.of("kill", EntityType.ZOMBIE.toString());
+            List<String> targets = config.getStringList("kill-quest-targets");
+            List<String> params = List.of("kill", targets.get((int)Math.floor(Math.random() * targets.size())));
 
             config.set("players." + id + ".quest.objective", params);
             config.set("players." + id + ".quest.goal", (int)(Math.floor(Math.random() * 10) + 5));

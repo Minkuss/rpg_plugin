@@ -20,7 +20,7 @@ public class SetRoleCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String str, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(ChatColor.BLACK + "Эту команду может отправить только игрок, чел...");
+            sender.sendMessage(ChatColor.BLACK + "Только игрок может использовать эту команду");
             return false;
         }
 

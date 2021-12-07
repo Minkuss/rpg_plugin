@@ -24,7 +24,7 @@ public class ShowRoleCommand implements CommandExecutor {
         String role = _plugin.getConfig().getString("players." + player.getUniqueId() + ".class.name");
 
         if (role == null) {
-            player.sendMessage(ChatColor.YELLOW + "[Warning]" + ChatColor.GOLD + "У тебя нет роли, чтобы получить роль используй команду \"/giverole <название роли>\"");
+            player.sendMessage(ChatColor.YELLOW + "[Warning]" + ChatColor.GOLD + "У тебя нет роли, чтобы её получить используй команду \"/giverole <название роли>\"");
             return false;
         }
 

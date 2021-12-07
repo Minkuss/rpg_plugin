@@ -25,14 +25,11 @@ public class PlayerPickQuest implements Listener {
 
             if(new QuestManager(_plugin).trySetQuest(player.getUniqueId()) && villager.getProfession() == Villager.Profession.NONE) {
                 villager.playEffect(EntityEffect.VILLAGER_HAPPY);
-                villager.setCustomName(ChatColor.GOLD + "БИГ БОБ");
-                villager.setCustomNameVisible(true);
-
                 player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Полученно задание");
             }
             else {
-                player.sendMessage(ChatColor.YELLOW + "[Warning] " + ChatColor.GOLD + "У тебя уже есть задание");
                 villager.playEffect(EntityEffect.VILLAGER_ANGRY);
+                player.sendMessage(ChatColor.YELLOW + "[Warning] " + ChatColor.GOLD + "У тебя уже есть задание");
             }
 
             event.setCancelled(true);

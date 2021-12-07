@@ -23,7 +23,7 @@ public class ShowExpCommand implements CommandExecutor {
         }
 
         if(args.length != 0) {
-            player.sendMessage(ChatColor.YELLOW + "[Warning] " + ChatColor.GOLD + "Аргументы не трубуются");
+            player.sendMessage(ChatColor.YELLOW + "[Warning] " + ChatColor.GOLD + "Аргументы не требуются");
             return false;
         }
 
@@ -31,9 +31,8 @@ public class ShowExpCommand implements CommandExecutor {
 
         int exp = config.getInt("players." + player.getUniqueId() + ".exp");
         int level = config.getInt("players." + player.getUniqueId() + ".level");
-        int start_value = config.getInt("exp-info.start-value");
         int level_scale = config.getInt("exp-info.level-scale");
-        int newLevelBarrier = start_value * (level * level_scale);
+        int newLevelBarrier = (int)Math.pow(level, 2) * level_scale;
 
         player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Опыт: " + exp + "/" + newLevelBarrier);
         return true;
