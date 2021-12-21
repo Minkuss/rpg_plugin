@@ -6,9 +6,12 @@ me\minkuss\rpg_plugin\RoleManager.class
 me\minkuss\rpg_plugin\QuestManager.class
 me\minkuss\rpg_plugin\commands\ShowLevelCommand.class
 me\minkuss\rpg_plugin\commands\ShowRoleCommand.class
+me\minkuss\rpg_plugin\listeners\quests\PlayerInteractEntityListener.class
 me\minkuss\rpg_plugin\runnables\CooldownCounter.class
 me\minkuss\rpg_plugin\Rpg_plugin.class
+me\minkuss\rpg_plugin\listeners\quests\EntityDeathListener.class
 me\minkuss\rpg_plugin\commands\ShowExpCommand.class
+me\minkuss\rpg_plugin\commands\CancelQuestCommand.class
 me\minkuss\rpg_plugin\commands\SetRoleCommand.class
 me\minkuss\rpg_plugin\listeners\PlayersKillListener.class
 me\minkuss\rpg_plugin\listeners\JoinPlayerListener.class
@@ -21,5 +24,3 @@ me\minkuss\rpg_plugin\runnables\SneakChecker.class
 me\minkuss\rpg_plugin\listeners\LevelUpListener.class
 me\minkuss\rpg_plugin\listeners\ScoutEventListener.class
 me\minkuss\rpg_plugin\listeners\PlayerBrakeBlockListener.class
-me\minkuss\rpg_plugin\listeners\quests\KillListener.class
-me\minkuss\rpg_plugin\listeners\quests\PlayerPickQuest.class

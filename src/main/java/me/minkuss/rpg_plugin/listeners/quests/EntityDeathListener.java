@@ -13,11 +13,11 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import java.util.List;
 
-public class KillListener implements Listener {
+public class EntityDeathListener implements Listener {
 
     private final Rpg_plugin _plugin;
 
-    public KillListener(Rpg_plugin plugin) {
+    public EntityDeathListener(Rpg_plugin plugin) {
         _plugin = plugin;
     }
 
@@ -25,7 +25,12 @@ public class KillListener implements Listener {
     public void onPlayerKill(EntityDeathEvent event) {
 
         Player player = event.getEntity().getKiller();
-        List<String> params = _plugin.getConfig().getStringList("players." + player.getUniqueId() + ".quest.objective");
+        List<String> params;
+
+        if(player != null)
+            params = _plugin.getConfig().getStringList("players." + player.getUniqueId() + ".quest.objective");
+        else
+            params = List.of();
 
         if(!params.isEmpty() && params.get(0).equals("kill")) {
             if(event.getEntityType().toString().equals(params.get(1))) {
@@ -39,7 +44,7 @@ public class KillListener implements Listener {
                 int goal = config.getInt("players." + player.getUniqueId() + ".quest.goal");
 
                 if(progress + 1 >= goal) {
-                    int exp = config.getInt("exp-info." + params.get(1)) * goal;
+                    int exp = config.getInt("exp-info.kill." + params.get(1)) * goal;
                     _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, exp));
                 }
             }

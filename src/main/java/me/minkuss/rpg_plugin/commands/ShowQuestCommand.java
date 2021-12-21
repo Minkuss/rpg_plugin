@@ -41,7 +41,15 @@ public class ShowQuestCommand implements CommandExecutor {
 
         if(params.get(0).equals("kill")) {
             int goal = config.getInt("players." + player.getUniqueId() + ".quest.goal");
-            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание: убить " + params.get(1).toLowerCase(Locale.ROOT) + ", " + goal + " раз");
+            int progress = config.getInt("players." + player.getUniqueId() + ".quest.progress");
+
+            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание: убить " + params.get(1).toLowerCase(Locale.ROOT) + ", " + progress + "/" + goal);
+            return true;
+        }
+        else if(params.get(0).equals("bring")) {
+            int goal = config.getInt("players." + player.getUniqueId() + ".quest.goal");
+
+            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание: принести " + params.get(1).toLowerCase(Locale.ROOT) + ", в количестве: " + goal);
             return true;
         }
 

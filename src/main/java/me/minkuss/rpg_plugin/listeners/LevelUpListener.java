@@ -1,5 +1,6 @@
 package me.minkuss.rpg_plugin.listeners;
 
+import me.minkuss.rpg_plugin.RoleManager;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import me.minkuss.rpg_plugin.events.LevelUpEvent;
 import org.bukkit.ChatColor;
@@ -19,54 +20,56 @@ public class LevelUpListener implements Listener {
 
     @EventHandler
     public void onPlayerLevelUp(LevelUpEvent event) {
-        if (event.getLevel() == 5) {
-            FileConfiguration config = _plugin.getConfig();
-            String role = config.getString("players." + event.getPlayer().getUniqueId() + ".class.name");
-            UUID id = event.getPlayer().getUniqueId();
-            Player player = event.getPlayer();
-            if (role.equals("разведчик")) {
-                if (config.getBoolean("players." + id + ".class.skills.sneaky-crouch.opened") == false) {
-                    config.set("players." + id + ".class.skills.sneaky-crouch.opened", true);
-                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: скрытное подкрадывание");
+        RoleManager roleManager = new RoleManager(_plugin);
+        UUID player_id = event.getPlayer().getUniqueId();
+
+        if(!roleManager.hasRole(player_id, null)) {
+            if (event.getLevel() == 5) {
+                FileConfiguration config = _plugin.getConfig();
+                String role = config.getString("players." + player_id + ".class.name");
+                UUID id = event.getPlayer().getUniqueId();
+                Player player = event.getPlayer();
+                if (role.equals("разведчик")) {
+                    if (config.getBoolean("players." + id + ".class.skills.sneaky-crouch.opened") == false) {
+                        config.set("players." + id + ".class.skills.sneaky-crouch.opened", true);
+                        player.sendMessage(ChatColor.GOLD + "Вы открыли способность: скрытное подкрадывание");
+                    }
+                } else if (role.equals("рыцарь")) {
+                    if (config.getBoolean("players." + id + ".class.skills.berserk.opened") == false) {
+                        config.set("players." + id + ".class.skills.berserk.opened", true);
+                        player.sendMessage(ChatColor.GOLD + "Вы открыли способность: берсерк");
+                    }
                 }
-            }
-            else if (role.equals("рыцарь")) {
-                if (config.getBoolean("players." + id + ".class.skills.berserk.opened") == false) {
-                    config.set("players." + id + ".class.skills.berserk.opened", true);
-                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: берсерк");
+            } else if (event.getLevel() == 10) {
+                FileConfiguration config = _plugin.getConfig();
+                String role = config.getString("players." + event.getPlayer().getUniqueId() + ".class.name");
+                UUID id = event.getPlayer().getUniqueId();
+                Player player = event.getPlayer();
+                if (role.equals("разведчик")) {
+                    if (config.getBoolean("players." + id + ".class.skills.invisibility.opened") == false) {
+                        config.set("players." + id + ".class.skills.invisibility.opened", true);
+                        player.sendMessage(ChatColor.GOLD + "Вы открыли способность: невидимость");
+                    }
+                } else if (role.equals("рыцарь")) {
+                    if (config.getBoolean("players." + id + ".class.skills.lifesteal.opened") == false) {
+                        config.set("players." + id + ".class.skills.lifesteal.opened", true);
+                        player.sendMessage(ChatColor.GOLD + "Вы открыли способность: вампиризм");
+                    }
+                }
+            } else if (event.getLevel() == 15) {
+                FileConfiguration config = _plugin.getConfig();
+                String role = config.getString("players." + event.getPlayer().getUniqueId() + ".class.name");
+                UUID id = event.getPlayer().getUniqueId();
+                Player player = event.getPlayer();
+                if (role.equals("разведчик")) {
+                    if (config.getBoolean("players." + id + ".class.skills.rat.opened") == false) {
+                        config.set("players." + id + ".class.skills.rat.opened", true);
+                        player.sendMessage(ChatColor.GOLD + "Вы открыли способность: кража");
+                    }
                 }
             }
         }
-        else if (event.getLevel() == 10) {
-            FileConfiguration config = _plugin.getConfig();
-            String role = config.getString("players." + event.getPlayer().getUniqueId() + ".class.name");
-            UUID id = event.getPlayer().getUniqueId();
-            Player player = event.getPlayer();
-            if (role.equals("разведчик")) {
-                if (config.getBoolean("players." + id + ".class.skills.invisibility.opened") == false) {
-                    config.set("players." + id + ".class.skills.invisibility.opened", true);
-                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: невидимость");
-                }
-            }
-            else if (role.equals("рыцарь")) {
-                if (config.getBoolean("players." + id + ".class.skills.lifesteal.opened") == false) {
-                    config.set("players." + id + ".class.skills.lifesteal.opened", true);
-                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: вампиризм");
-                }
-            }
-        }
-        else if (event.getLevel() == 15) {
-            FileConfiguration config = _plugin.getConfig();
-            String role = config.getString("players." + event.getPlayer().getUniqueId() + ".class.name");
-            UUID id = event.getPlayer().getUniqueId();
-            Player player = event.getPlayer();
-            if (role.equals("разведчик")) {
-                if (config.getBoolean("players." + id + ".class.skills.rat.opened") == false) {
-                    config.set("players." + id + ".class.skills.rat.opened", true);
-                    player.sendMessage(ChatColor.GOLD + "Вы открыли способность: кража");
-                }
-            }
-        }
+
         _plugin.saveConfig();
     }
 }
