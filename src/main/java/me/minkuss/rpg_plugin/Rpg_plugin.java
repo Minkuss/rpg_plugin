@@ -1,11 +1,12 @@
 package me.minkuss.rpg_plugin;
 
-import me.minkuss.rpg_plugin.commands.*;
 import me.minkuss.rpg_plugin.listeners.*;
+import me.minkuss.rpg_plugin.listeners.clans.AsyncPlayerChatEventListener;
+import me.minkuss.rpg_plugin.listeners.clans.InviteEventListener;
 import me.minkuss.rpg_plugin.listeners.quests.EntityDeathListener;
 import me.minkuss.rpg_plugin.listeners.quests.PlayerInteractEntityListener;
 import me.minkuss.rpg_plugin.listeners.quests.QuestCompleteListener;
-import me.minkuss.rpg_plugin.tab_completers.GiveRoleTabCompleter;
+import me.minkuss.rpg_plugin.tab_completers.*;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,31 +28,36 @@ public final class Rpg_plugin extends JavaPlugin {
     }
 
     private void RegisterEvents() {
-        _plugin_manager.registerEvents(new PlayersKillListener(this), this);
-        _plugin_manager.registerEvents(new JoinPlayerListener(this), this);
+        _plugin_manager.registerEvents(new PlayerInteractEntityListener(this), this);
         _plugin_manager.registerEvents(new PlayerBrakeBlockListener(this), this);
-        _plugin_manager.registerEvents(new ScoutEventListener(this), this);
+        _plugin_manager.registerEvents(new QuestCompleteListener(this), this);
         _plugin_manager.registerEvents(new KnightEventListener(this), this);
+        _plugin_manager.registerEvents(new PlayersKillListener(this), this);
+        _plugin_manager.registerEvents(new EntityDeathListener(this), this);
+        _plugin_manager.registerEvents(new JoinPlayerListener(this), this);
+        _plugin_manager.registerEvents(new ScoutEventListener(this), this);
         _plugin_manager.registerEvents(new GainedExpListener(this), this);
         _plugin_manager.registerEvents(new LevelUpListener(this), this);
-        _plugin_manager.registerEvents(new PlayerInteractEntityListener(this), this);
-
-        _plugin_manager.registerEvents(new EntityDeathListener(this), this);
-        _plugin_manager.registerEvents(new QuestCompleteListener(this), this);
+        _plugin_manager.registerEvents(new InviteEventListener(this), this);
+        _plugin_manager.registerEvents(new AsyncPlayerChatEventListener(this), this);
     }
 
     private void SetCommands() {
-        _server.getPluginCommand("setrole").setExecutor(new SetRoleCommand(this));
+        String[] commands_names = {
+            "role", "quest",
+            "exp", "level",
+            "clan", "req",
+        };
 
-        _server.getPluginCommand("giverole").setExecutor(new GiveRoleCommand(this));
-        _server.getPluginCommand("giverole").setTabCompleter(new GiveRoleTabCompleter(this));
+        for(String command_name : commands_names) {
+            _server.getPluginCommand(command_name).setExecutor(new CommandsManager(this));
+        }
 
-        _server.getPluginCommand("showexp").setExecutor(new ShowExpCommand(this));
-        _server.getPluginCommand("showlevel").setExecutor(new ShowLevelCommand(this));
-        _server.getPluginCommand("showrole").setExecutor(new ShowRoleCommand(this));
-        _server.getPluginCommand("showquest").setExecutor(new ShowQuestCommand(this));
-
-        _server.getPluginCommand("cancelquest").setExecutor(new CancelQuestCommand(this));
+        _server.getPluginCommand("role").setTabCompleter(new RoleTabCompleter(this));
+        _server.getPluginCommand("quest").setTabCompleter(new QuestTabCompleter());
+        _server.getPluginCommand("exp").setTabCompleter(new ExpTabCompleter());
+        _server.getPluginCommand("level").setTabCompleter(new LevelTabCompleter());
+        _server.getPluginCommand("clan").setTabCompleter(new ClanTabCompleter());
     }
 
 }

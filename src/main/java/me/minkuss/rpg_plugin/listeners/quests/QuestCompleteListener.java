@@ -23,7 +23,7 @@ public class QuestCompleteListener implements Listener {
         FileConfiguration config = _plugin.getConfig();
         Player player = event.getPlayer();
 
-        config.set("players." + player.getUniqueId() + ".quest", null);
+        config.set("players." + player.getName() + ".quest", null);
         _plugin.saveConfig();
 
         player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание вылненно");

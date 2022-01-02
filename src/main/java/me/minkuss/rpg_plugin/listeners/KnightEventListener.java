@@ -18,16 +18,14 @@ public class KnightEventListener implements Listener {
 
     @EventHandler
     public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
-
         if(event.getDamager() instanceof Player player && event.getEntity() instanceof Damageable entity) {
-
-            boolean isKnight = new RoleManager(_plugin).hasRole(player.getUniqueId(), "рыцарь");
+            boolean isKnight = new RoleManager(_plugin).hasRole(player.getName(), "рыцарь");
 
             if(isKnight) {
                 FileConfiguration config = _plugin.getConfig();
 
-                boolean isBerserkOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.berserk.opened");
-                boolean isLifeStealOpened = config.getBoolean("players." + event.getDamager().getUniqueId() + ".class.skills.lifesteal.opened");
+                boolean isBerserkOpened = config.getBoolean("players." + event.getDamager().getName() + ".class.skills.berserk.opened");
+                boolean isLifeStealOpened = config.getBoolean("players." + event.getDamager().getName() + ".class.skills.lifesteal.opened");
 
                 double hp = player.getHealth();
                 double damage = (20 - hp) / 2;

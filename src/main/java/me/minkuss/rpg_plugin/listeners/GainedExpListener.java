@@ -22,15 +22,16 @@ public class GainedExpListener implements Listener {
         if(event.getExperience() > 0) {
             FileConfiguration config = _plugin.getConfig();
             Player player = event.getPlayer();
+            String player_name = player.getName();
 
             int exp = event.getExperience();
-            int level = config.getInt("players." + player.getUniqueId() + ".level");
+            int level = config.getInt("players." + player_name + ".level");
             int level_scale = config.getInt("exp-info.level-scale");
             int newLevelBarrier = (int)Math.pow(level, 2) * level_scale;
 
             player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Опыт +" + exp);
 
-            exp += config.getInt("players." + player.getUniqueId() + ".exp");
+            exp += config.getInt("players." + player_name + ".exp");
 
             while(exp >= newLevelBarrier) {
                 exp -= newLevelBarrier;
@@ -43,8 +44,8 @@ public class GainedExpListener implements Listener {
                 player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Новый уровень " + level);
             }
 
-            config.set("players." + player.getUniqueId() + ".level", level);
-            config.set("players." + player.getUniqueId() + ".exp", exp);
+            config.set("players." + player_name + ".level", level);
+            config.set("players." + player_name + ".exp", exp);
             _plugin.saveConfig();
         }
 

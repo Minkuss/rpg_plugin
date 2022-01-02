@@ -16,12 +16,8 @@ public class PlayerBrakeBlockListener implements Listener {
 
     @EventHandler
     public void onBreakBlock(BlockBreakEvent event) {
-
-        Player player = event.getPlayer();
-        Material block = event.getBlock().getType();
-
-        int exp = GetBlockExp(block);
-        _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, exp));
+        int exp = GetBlockExp(event.getBlock().getType());
+        _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(event.getPlayer(), exp));
     }
 
     private int GetBlockExp(Material block) {

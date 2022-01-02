@@ -26,13 +26,13 @@ public class ScoutEventListener implements Listener {
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
 
-        boolean isScout = new RoleManager(_plugin).hasRole(event.getPlayer().getUniqueId(), "разведчик");
+        boolean isScout = new RoleManager(_plugin).hasRole(event.getPlayer().getName(), "разведчик");
 
         if(isScout) {
             FileConfiguration config = _plugin.getConfig();
             Player player = event.getPlayer();
 
-            boolean isSkillOpened = config.getBoolean("players." + player.getUniqueId() + ".class.skills.sneaky-crouch.opened");
+            boolean isSkillOpened = config.getBoolean("players." + player.getName() + ".class.skills.sneaky-crouch.opened");
 
             if(isSkillOpened) new SneakChecker(player).runTaskTimer(_plugin, 20, 40);
         }
@@ -41,23 +41,23 @@ public class ScoutEventListener implements Listener {
     @EventHandler
     public void onEntityGotDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player player) {
-
-            boolean isScout = new RoleManager(_plugin).hasRole(player.getUniqueId(), "разведчик");
+            String player_name = player.getName();
+            boolean isScout = new RoleManager(_plugin).hasRole(player_name, "разведчик");
 
             if (isScout) {
                 FileConfiguration config = _plugin.getConfig();
 
                 double hp = player.getHealth() - event.getDamage();
 
-                boolean isSkillOpened = config.getBoolean("players." + player.getUniqueId() + ".class.skills.invisibility.opened");
-                boolean isCoolDowned = config.getLong("players." + player.getUniqueId() + ".class.skills.invisibility.time-left") == 0;
+                boolean isSkillOpened = config.getBoolean("players." + player_name + ".class.skills.invisibility.opened");
+                boolean isCoolDowned = config.getLong("players." + player_name + ".class.skills.invisibility.time-left") == 0;
 
                 if (isCoolDowned && hp <= 6 && isSkillOpened) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1, false, false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 1, false, false));
                     player.sendMessage("Активирована способность 'бегу до дому'");
 
-                    new CooldownCounter(player, _plugin, "invisibility").runTaskTimer(_plugin, 0, 20);
+                    new CooldownCounter(player_name, _plugin, "invisibility").runTaskTimer(_plugin, 0, 20);
                 }
             }
 
@@ -70,12 +70,12 @@ public class ScoutEventListener implements Listener {
         if (event.getEntity() instanceof Player entity && event.getDamager() instanceof Player damager) {
             FileConfiguration config = _plugin.getConfig();
 
-            boolean isScout = new RoleManager(_plugin).hasRole(damager.getUniqueId(), "разведчик");
+            String damager_name = damager.getName();
 
-            boolean isSkillOpened = config.getBoolean("players." + damager.getUniqueId() + ".class.skills.rat.opened");
-
+            boolean isScout = new RoleManager(_plugin).hasRole(damager_name, "разведчик");
+            boolean isSkillOpened = config.getBoolean("players." + damager_name + ".class.skills.rat.opened");
             boolean hasInvisibility = damager.hasPotionEffect(PotionEffectType.INVISIBILITY);
-            boolean isCoolDowned = config.getLong("players." + damager.getUniqueId() + ".skills.rat.time-left") == 0;
+            boolean isCoolDowned = config.getLong("players." + damager_name + ".skills.rat.time-left") == 0;
 
             if (isScout && isSkillOpened && damager.isSneaking() && hasInvisibility && isCoolDowned) {
                 damager.sendMessage("Ты вор получается)))))))))");
@@ -88,7 +88,7 @@ public class ScoutEventListener implements Listener {
                 inventory_entity.removeItem(item);
                 inventory_damager.addItem(item);
 
-                new CooldownCounter(damager, _plugin, "rat").runTaskTimer(_plugin, 0, 20);
+                new CooldownCounter(damager_name, _plugin, "rat").runTaskTimer(_plugin, 0, 20);
             }
         }
     }

@@ -28,20 +28,20 @@ public class EntityDeathListener implements Listener {
         List<String> params;
 
         if(player != null)
-            params = _plugin.getConfig().getStringList("players." + player.getUniqueId() + ".quest.objective");
+            params = _plugin.getConfig().getStringList("players." + player.getName() + ".quest.objective");
         else
             params = List.of();
 
         if(!params.isEmpty() && params.get(0).equals("kill")) {
             if(event.getEntityType().toString().equals(params.get(1))) {
                 FileConfiguration config = _plugin.getConfig();
-                int progress = config.getInt("players." + player.getUniqueId() + ".quest.progress");
+                int progress = config.getInt("players." + player.getName() + ".quest.progress");
 
                 player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Прогресс задания: " + (progress + 1));
-                config.set("players." + player.getUniqueId() + ".quest.progress", (progress + 1));
+                config.set("players." + player.getName() + ".quest.progress", (progress + 1));
                 _plugin.saveConfig();
 
-                int goal = config.getInt("players." + player.getUniqueId() + ".quest.goal");
+                int goal = config.getInt("players." + player.getName() + ".quest.goal");
 
                 if(progress + 1 >= goal) {
                     int exp = config.getInt("exp-info.kill." + params.get(1)) * goal;

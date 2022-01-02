@@ -36,14 +36,14 @@ public class PlayerInteractEntityListener implements Listener {
             boolean hasBringQuest = false;
             List<String> params = null;
 
-            if(config.contains("players." + player.getUniqueId() + ".quest"))
-                params = config.getStringList("players." + player.getUniqueId() + ".quest.objective");
+            if(config.contains("players." + player.getName() + ".quest"))
+                params = config.getStringList("players." + player.getName() + ".quest.objective");
 
             if(params != null)
                 hasBringQuest = params.get(0).equals("bring");
 
             if(hasBringQuest) {
-                int goal = config.getInt("players." + player.getUniqueId() + ".quest.goal");
+                int goal = config.getInt("players." + player.getName() + ".quest.goal");
                 PlayerInventory player_inventory = player.getInventory();
 
                 if(player_inventory.getItemInMainHand().getType().toString().equals(params.get(1))) {
@@ -51,10 +51,11 @@ public class PlayerInteractEntityListener implements Listener {
                     player_inventory.removeItem(item);
                     item.setAmount(item.getAmount() - goal);
                     player_inventory.setItemInMainHand(item);
+                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, 5 * goal));
                 }
 
             }
-            else if(new QuestManager(_plugin).trySetQuest(player.getUniqueId()) && villager.getProfession() == Villager.Profession.NONE) {
+            else if(new QuestManager(_plugin).trySetQuest(player.getName()) && villager.getProfession() == Villager.Profession.NONE) {
                     villager.playEffect(EntityEffect.VILLAGER_HAPPY);
             }
             else {

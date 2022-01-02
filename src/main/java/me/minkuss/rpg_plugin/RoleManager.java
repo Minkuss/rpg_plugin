@@ -7,23 +7,23 @@ import java.util.UUID;
 public class RoleManager {
 
     private final Rpg_plugin _plugin;
-    private FileConfiguration _config;
+    private final FileConfiguration _config;
 
     public RoleManager(Rpg_plugin plugin) {
         _plugin = plugin;
         _config = plugin.getConfig();
     }
 
-    public boolean hasRole(UUID id, String role_name) {
-        if(_plugin.getConfig().getString("players." + id + ".class.name") == null)
+    public boolean hasRole(String player_name, String role_name) {
+        if(_plugin.getConfig().getString("players." + player_name + ".class.name") == null)
             return false;
         else
-            return _plugin.getConfig().getString("players." + id + ".class.name").equals(role_name);
+            return _plugin.getConfig().getString("players." + player_name + ".class.name").equals(role_name);
     }
 
-    public void setScout(UUID player_id) {
-        String class_path = "players." + player_id + ".class";
-        int level = _config.getInt("players." + player_id + ".level");
+    public void setScout(String player_name) {
+        String class_path = "players." + player_name + ".class";
+        int level = _config.getInt("players." + player_name + ".level");
 
         _config.set(class_path, null);
         _config.set(class_path + ".name", "разведчик");
@@ -41,9 +41,9 @@ public class RoleManager {
         _plugin.saveConfig();
     }
 
-    public void setKnight(UUID player_id) {
-        String class_path = "players." + player_id + ".class";
-        int level = _config.getInt("players." + player_id + ".level");
+    public void setKnight(String player_name) {
+        String class_path = "players." + player_name + ".class";
+        int level = _config.getInt("players." + player_name + ".level");
 
         _config.set(class_path, null);
         _config.set(class_path + ".name", "рыцарь");

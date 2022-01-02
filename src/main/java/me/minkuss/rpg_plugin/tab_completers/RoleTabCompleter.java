@@ -7,11 +7,10 @@ import org.bukkit.command.TabCompleter;
 
 import java.util.List;
 
-public class GiveRoleTabCompleter implements TabCompleter {
-
+public class RoleTabCompleter implements TabCompleter {
     private final Rpg_plugin _plugin;
 
-    public GiveRoleTabCompleter(Rpg_plugin plugin) {
+    public RoleTabCompleter(Rpg_plugin plugin) {
         _plugin = plugin;
     }
 
@@ -19,6 +18,12 @@ public class GiveRoleTabCompleter implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 
         if(args.length == 1) {
+            return List.of("give", "set", "show");
+        }
+        else if(args[0].equals("give") && args.length == 2) {
+            return _plugin.getConfig().getStringList("role-names");
+        }
+        else if(args[0].equals("set") && args.length == 3) {
             return _plugin.getConfig().getStringList("role-names");
         }
 
