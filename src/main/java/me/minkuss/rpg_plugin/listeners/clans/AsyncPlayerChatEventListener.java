@@ -2,6 +2,7 @@ package me.minkuss.rpg_plugin.listeners.clans;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,10 +31,21 @@ public class AsyncPlayerChatEventListener implements Listener {
 
             for (String item : playersList) {
                 if (_plugin.getServer().getPlayer(item) != null) {
-                    _plugin.getServer().getPlayer(item).sendMessage(ChatColor.GREEN + "[" + sender.getName() + "] " + ChatColor.GOLD + event.getMessage());
+                    _plugin.getServer().getPlayer(item).sendMessage(ChatColor.RED + "[" + sender.getName() + "] " + ChatColor.GOLD + event.getMessage());
                 }
             }
-            event.setCancelled(true);
         }
+        else {
+            int blockDistance = 10;
+
+            Location senderLocation = sender.getLocation();
+
+            for (Player item : event.getRecipients()) {
+                if (item.getLocation().distance(senderLocation) <= blockDistance) {
+                    item.sendMessage(ChatColor.GREEN + "[" + sender.getName() + "] " + ChatColor.GOLD + event.getMessage());
+                }
+            }
+        }
+        event.setCancelled(true);
     }
 }
