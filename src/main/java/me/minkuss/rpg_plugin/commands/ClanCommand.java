@@ -533,11 +533,11 @@ public class ClanCommand extends AbstractCommand {
     }
 
     private void Home(Player player, FileConfiguration config) {
-        boolean inClan = config.contains("players." + player.getName() + ".clan");
+        boolean in_clan = config.contains("players." + player.getName() + ".clan");
         String clan;
         boolean hasHome;
 
-        if (inClan) {
+        if (!in_clan) {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не состоите в клане");
             return;
         } else {
