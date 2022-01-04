@@ -23,6 +23,7 @@ me\minkuss\rpg_plugin\listeners\quests\EntityDeathListener.class
 me\minkuss\rpg_plugin\listeners\PlayersKillListener.class
 me\minkuss\rpg_plugin\listeners\clans\InviteEventListener$1.class
 me\minkuss\rpg_plugin\listeners\JoinPlayerListener.class
+me\minkuss\rpg_plugin\listeners\portals\PortalEventListener.class
 me\minkuss\rpg_plugin\events\LevelUpEvent.class
 me\minkuss\rpg_plugin\commands\RoleCommand.class
 me\minkuss\rpg_plugin\listeners\GainedExpListener.class
