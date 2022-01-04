@@ -1,6 +1,7 @@
 package me.minkuss.rpg_plugin.listeners.portals;
 
 import me.minkuss.rpg_plugin.Rpg_plugin;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
@@ -19,6 +20,8 @@ public class PortalEventListener implements Listener {
         WorldCreator worldCreator = new WorldCreator("playground");
         World world = _plugin.getServer().createWorld(worldCreator);
         player.teleport(world.getSpawnLocation());
+        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Generating world...");
+        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "You teleported");
         event.setCancelled(true);
     }
 }
