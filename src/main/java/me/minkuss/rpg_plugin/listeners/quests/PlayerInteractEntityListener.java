@@ -2,9 +2,7 @@ package me.minkuss.rpg_plugin.listeners.quests;
 
 import me.minkuss.rpg_plugin.QuestManager;
 import me.minkuss.rpg_plugin.Rpg_plugin;
-import me.minkuss.rpg_plugin.events.GainedExpEvent;
 import me.minkuss.rpg_plugin.events.quests.QuestCompleteEvent;
-import org.bukkit.ChatColor;
 import org.bukkit.EntityEffect;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,11 +10,9 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class PlayerInteractEntityListener implements Listener {
@@ -61,7 +57,6 @@ public class PlayerInteractEntityListener implements Listener {
             else {
                     villager.playEffect(EntityEffect.VILLAGER_ANGRY);
             }
-
 
             event.setCancelled(true);
         }

@@ -12,6 +12,7 @@ me\minkuss\rpg_plugin\commands\LevelCommand.class
 me\minkuss\rpg_plugin\RoleManager.class
 me\minkuss\rpg_plugin\QuestManager.class
 me\minkuss\rpg_plugin\tab_completers\ExpTabCompleter.class
+me\minkuss\rpg_plugin\listeners\quests\ClanQuestCompleteListener.class
 me\minkuss\rpg_plugin\commands\AbstractCommand.class
 me\minkuss\rpg_plugin\listeners\quests\PlayerInteractEntityListener.class
 me\minkuss\rpg_plugin\commands\ClanCommand.class
@@ -21,6 +22,7 @@ me\minkuss\rpg_plugin\tab_completers\ClanTabCompleter.class
 me\minkuss\rpg_plugin\commands\ExpCommand.class
 me\minkuss\rpg_plugin\listeners\quests\EntityDeathListener.class
 me\minkuss\rpg_plugin\listeners\PlayersKillListener.class
+me\minkuss\rpg_plugin\events\quests\ClanQuestCompleteEvent.class
 me\minkuss\rpg_plugin\listeners\clans\InviteEventListener$1.class
 me\minkuss\rpg_plugin\listeners\JoinPlayerListener.class
 me\minkuss\rpg_plugin\events\LevelUpEvent.class

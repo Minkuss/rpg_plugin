@@ -80,6 +80,7 @@ public class ClanCommand extends AbstractCommand {
             config.set("clans." + clan_name + ".first-owner", player.getName());
             config.set("clan-list", clan_list);
             config.set("players." + player.getName() + ".clan", clan_name);
+            config.set("clans." + clan_name + ".exp", 0);
             plugin.saveConfig();
 
             player.sendMessage(ChatColor.GOLD + "Вы создали клан - " + clan_name);
@@ -384,10 +385,12 @@ public class ClanCommand extends AbstractCommand {
         List<String> owners = config.getStringList("clans." + clan_name + ".owners");
         List<String> participants = config.getStringList("clans." + clan_name + ".participants");
         int clanmates = config.getInt("clans." + clan_name + ".clanmates");
+        int exp = config.getInt("clans." + clan_name + ".exp");
 
         player.sendMessage(ChatColor.BLUE + "[Информация]");
         player.sendMessage(ChatColor.GREEN + "[Название клана]: " + ChatColor.GOLD + clan_name);
         player.sendMessage(ChatColor.GREEN + "[Создатель клана]: " + ChatColor.GOLD + firstOwner);
+        player.sendMessage(ChatColor.GREEN + "[Опыт клана]: " + ChatColor.GOLD + exp);
         player.sendMessage(ChatColor.GREEN + "[Список модераторов]: ");
 
         for (String item : owners) {

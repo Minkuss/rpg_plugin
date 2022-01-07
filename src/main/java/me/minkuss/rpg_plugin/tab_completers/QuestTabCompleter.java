@@ -14,11 +14,17 @@ public class QuestTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String str, String[] args) {
 
-        if(args.length == 1) {
-            return List.of("cancel", "show");
+        switch(args.length) {
+            case 1 -> {
+                return List.of("cancel", "show", "get", "complete");
+            }
+            case 2 -> {
+                if(args[0].equals("get") || args[0].equals("complete"))
+                    return List.of("forclan");
+            }
+            default -> {}
         }
 
         return null;
     }
-
 }
