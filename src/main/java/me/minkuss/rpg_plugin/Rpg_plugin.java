@@ -3,6 +3,7 @@ package me.minkuss.rpg_plugin;
 import me.minkuss.rpg_plugin.listeners.*;
 import me.minkuss.rpg_plugin.listeners.clans.AsyncPlayerChatEventListener;
 import me.minkuss.rpg_plugin.listeners.clans.InviteEventListener;
+import me.minkuss.rpg_plugin.listeners.portals.PortalEventListener;
 import me.minkuss.rpg_plugin.listeners.quests.ClanQuestCompleteListener;
 import me.minkuss.rpg_plugin.listeners.quests.EntityDeathListener;
 import me.minkuss.rpg_plugin.listeners.quests.PlayerInteractEntityListener;
@@ -41,7 +42,6 @@ public final class Rpg_plugin extends JavaPlugin {
         _plugin_manager.registerEvents(new LevelUpListener(this), this);
         _plugin_manager.registerEvents(new InviteEventListener(this), this);
         _plugin_manager.registerEvents(new AsyncPlayerChatEventListener(this), this);
-        _plugin_manager.registerEvents(new ClanQuestCompleteListener(this), this);
     }
 
     private void SetCommands() {
