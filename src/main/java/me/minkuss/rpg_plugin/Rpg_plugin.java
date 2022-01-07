@@ -42,6 +42,8 @@ public final class Rpg_plugin extends JavaPlugin {
         _plugin_manager.registerEvents(new LevelUpListener(this), this);
         _plugin_manager.registerEvents(new InviteEventListener(this), this);
         _plugin_manager.registerEvents(new AsyncPlayerChatEventListener(this), this);
+        _plugin_manager.registerEvents(new PortalEventListener(this), this);
+        _plugin_manager.registerEvents(new ClanQuestCompleteListener(this), this);
     }
 
     private void SetCommands() {
