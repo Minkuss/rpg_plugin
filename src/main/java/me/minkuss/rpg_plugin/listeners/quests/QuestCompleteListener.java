@@ -29,7 +29,7 @@ public class QuestCompleteListener implements Listener {
         _plugin.saveConfig();
 
         player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание вылненно");
-        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Вы получили - " + event.getMoney() + ". Ваш баланс - " + event.getMoney() + money);
+        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Вы получили - " + event.getMoney() + ". Ваш баланс - " + money);
         _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, event.getExp()));
     }
 
