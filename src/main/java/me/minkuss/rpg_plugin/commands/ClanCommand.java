@@ -45,9 +45,7 @@ public class ClanCommand extends AbstractCommand {
             case "setmod" -> SetModerator(player, plugin, args);
             case "unmod" -> UnMod(player, plugin, args);
             case "help" -> Help(player);
-            default -> {
-                sender.sendMessage(ChatColor.RED + "Чтобы увидеть перечень всех комманд, напишите /clan help");
-            }
+            default -> sender.sendMessage(ChatColor.RED + "Чтобы увидеть перечень всех комманд, напишите /clan help");
         }
     }
 
@@ -55,16 +53,16 @@ public class ClanCommand extends AbstractCommand {
         FileConfiguration config = plugin.getConfig();
         String clan_name = args[1];
 
-        boolean inClan = config.contains("players." + player.getName() + ".clan");
+        boolean in_clan = config.contains("players." + player.getName() + ".clan");
 
         if (args.length != 2) {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Введите название своего клана");
             return;
         }
 
-        if (!inClan) {
+        if (!in_clan) {
             List<String> player_list = List.of(player.getName());
-            List<String> clan_list = config.getStringList("clan_list");
+            List<String> clan_list = config.getStringList("clan-list");
             List<String> owners = List.of(player.getName());
 
             if (clan_list.contains(clan_name)) {
@@ -90,7 +88,7 @@ public class ClanCommand extends AbstractCommand {
     private void Leave(Player player, Rpg_plugin plugin) {
         FileConfiguration config = plugin.getConfig();
         String clan_name;
-        String firstOwner;
+        String first_owner;
         List<String> owners;
         List<String> clan_list = config.getStringList("clan-list");
         int mates_number;
@@ -98,7 +96,7 @@ public class ClanCommand extends AbstractCommand {
 
         if (inClan) {
             clan_name = config.getString("players." + player.getName() + ".clan");
-            firstOwner = config.getString("clans." + clan_name + ".first-owner");
+            first_owner = config.getString("clans." + clan_name + ".first-owner");
             owners = config.getStringList("clans." + clan_name + ".owners");
             mates_number = config.getInt("clans." + clan_name + ".clanmates");
 
@@ -117,7 +115,7 @@ public class ClanCommand extends AbstractCommand {
                 return;
             }
 
-            if (firstOwner.equals(player.getName())) {
+            if (first_owner.equals(player.getName())) {
                 owners.remove(player.getName());
                 String temp = owners.get(new Random().nextInt(owners.size()));
                 config.set("clans." + clan_name + ".owners", owners);

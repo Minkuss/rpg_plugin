@@ -26,15 +26,15 @@ public class ScoutEventListener implements Listener {
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
 
-        boolean isScout = new RoleManager(_plugin).hasRole(event.getPlayer().getName(), "разведчик");
+        boolean is_scout = new RoleManager(_plugin).hasRole(event.getPlayer().getName(), "разведчик");
 
-        if(isScout) {
+        if(is_scout) {
             FileConfiguration config = _plugin.getConfig();
             Player player = event.getPlayer();
 
-            boolean isSkillOpened = config.getBoolean("players." + player.getName() + ".class.skills.sneaky-crouch.opened");
+            boolean is_skill_opened = config.getBoolean("players." + player.getName() + ".class.skills.sneaky-crouch.opened");
 
-            if(isSkillOpened) new SneakChecker(player).runTaskTimer(_plugin, 20, 40);
+            if(is_skill_opened) new SneakChecker(player).runTaskTimer(_plugin, 20, 40);
         }
     }
 
@@ -42,17 +42,17 @@ public class ScoutEventListener implements Listener {
     public void onEntityGotDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player player) {
             String player_name = player.getName();
-            boolean isScout = new RoleManager(_plugin).hasRole(player_name, "разведчик");
+            boolean is_scout = new RoleManager(_plugin).hasRole(player_name, "разведчик");
 
-            if (isScout) {
+            if (is_scout) {
                 FileConfiguration config = _plugin.getConfig();
 
                 double hp = player.getHealth() - event.getDamage();
 
-                boolean isSkillOpened = config.getBoolean("players." + player_name + ".class.skills.invisibility.opened");
-                boolean isCoolDowned = config.getLong("players." + player_name + ".class.skills.invisibility.time-left") == 0;
+                boolean is_skill_opened = config.getBoolean("players." + player_name + ".class.skills.invisibility.opened");
+                boolean is_cool_downed = config.getLong("players." + player_name + ".class.skills.invisibility.time-left") == 0;
 
-                if (isCoolDowned && hp <= 6 && isSkillOpened) {
+                if (is_cool_downed && hp <= 6 && is_skill_opened) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1, false, false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 1, false, false));
                     player.sendMessage("Активирована способность 'бегу до дому'");
@@ -72,13 +72,13 @@ public class ScoutEventListener implements Listener {
 
             String damager_name = damager.getName();
 
-            boolean isScout = new RoleManager(_plugin).hasRole(damager_name, "разведчик");
-            boolean isSkillOpened = config.getBoolean("players." + damager_name + ".class.skills.rat.opened");
-            boolean hasInvisibility = damager.hasPotionEffect(PotionEffectType.INVISIBILITY);
-            boolean isCoolDowned = config.getLong("players." + damager_name + ".skills.rat.time-left") == 0;
+            boolean is_scout = new RoleManager(_plugin).hasRole(damager_name, "разведчик");
+            boolean is_skill_opened = config.getBoolean("players." + damager_name + ".class.skills.rat.opened");
+            boolean has_invisibility = damager.hasPotionEffect(PotionEffectType.INVISIBILITY);
+            boolean is_cool_downed = config.getLong("players." + damager_name + ".skills.rat.time-left") == 0;
 
-            if (isScout && isSkillOpened && damager.isSneaking() && hasInvisibility && isCoolDowned) {
-                damager.sendMessage("Ты вор получается)))))))))");
+            if (is_scout && is_skill_opened && damager.isSneaking() && has_invisibility && is_cool_downed) {
+                //damager.sendMessage("Ты вор получается)))))))))");
                 Inventory inventory_entity = entity.getInventory();
                 Inventory inventory_damager = damager.getInventory();
 

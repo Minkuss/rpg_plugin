@@ -81,10 +81,12 @@ public class QuestManager {
 
     private void SetKillQuest(String player_name) {
         FileConfiguration config = _plugin.getConfig();
+
         List<String> targets = config.getStringList("kill-quest-targets");
         List<String> params = List.of("kill", targets.get((int)Math.floor(Math.random() * targets.size())));
 
-        int goal = (int)(Math.floor(Math.random() * 10) + 5);
+        int player_level = config.getInt("player." + player_name + ".level");
+        int goal = (int)(Math.floor(Math.random() * player_level) + 5);
 
         config.set("players." + player_name + ".quest.objective", params);
         config.set("players." + player_name + ".quest.goal", goal);
@@ -95,16 +97,15 @@ public class QuestManager {
     }
 
     private void SetBringQuest(String player_name) {
-        Player player = _plugin.getServer().getPlayer(player_name);
-
         FileConfiguration config = _plugin.getConfig();
+        Player player = _plugin.getServer().getPlayer(player_name);
 
         List<String> targets = config.getStringList("bring-quest-targets");
         String target = targets.get((int)Math.floor(Math.random() * targets.size()));
-
         List<String> params = List.of("bring", target);
 
-        int goal = (int)(Math.floor(Math.random() * 10) + 5);
+        int player_level = config.getInt("player." + player_name + ".level");
+        int goal = (int)(Math.floor(Math.random() * player_level) + 5);
 
         config.set("players." + player_name + ".quest.objective", params);
         config.set("players." + player_name + ".quest.goal", goal);

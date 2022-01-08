@@ -17,11 +17,19 @@ public class PortalEventListener implements Listener {
     @EventHandler
     public void OnPlayerPortal(PlayerPortalEvent event) {
         Player player = event.getPlayer();
-        WorldCreator worldCreator = new WorldCreator("playground");
-        World world = _plugin.getServer().createWorld(worldCreator);
-        event.setCancelled(true);
-        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Generating world...");
-        player.teleport(world.getSpawnLocation());
-        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "You teleported");
+        WorldCreator world_creator;
+        World world;
+
+        if(_plugin.getServer().getWorlds().get(0) == player.getWorld()) {
+            world_creator = new WorldCreator("game");
+            world = _plugin.getServer().createWorld(world_creator);
+
+            event.setCancelled(true);
+
+            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Генерация мира...");
+            player.teleport(world.getSpawnLocation());
+            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Вы телепортированы");
+        }
+
     }
 }

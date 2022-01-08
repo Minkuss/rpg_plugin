@@ -19,21 +19,21 @@ public class KnightEventListener implements Listener {
     @EventHandler
     public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
         if(event.getDamager() instanceof Player player && event.getEntity() instanceof Damageable entity) {
-            boolean isKnight = new RoleManager(_plugin).hasRole(player.getName(), "рыцарь");
+            boolean is_knight = new RoleManager(_plugin).hasRole(player.getName(), "рыцарь");
 
-            if(isKnight) {
+            if(is_knight) {
                 FileConfiguration config = _plugin.getConfig();
 
-                boolean isBerserkOpened = config.getBoolean("players." + event.getDamager().getName() + ".class.skills.berserk.opened");
-                boolean isLifeStealOpened = config.getBoolean("players." + event.getDamager().getName() + ".class.skills.lifesteal.opened");
+                boolean is_berserk_opened = config.getBoolean("players." + player.getName() + ".class.skills.berserk.opened");
+                boolean is_lifesteal_opened = config.getBoolean("players." + player.getName() + ".class.skills.lifesteal.opened");
 
                 double hp = player.getHealth();
                 double damage = (20 - hp) / 2;
 
-                if(isBerserkOpened) {
+                if(is_berserk_opened) {
                     entity.setHealth(entity.getHealth() - damage);
                 }
-                if (isLifeStealOpened) {
+                if (is_lifesteal_opened) {
                     boolean chance = Math.floor(Math.random())*100 <= player.getLastDamage() + damage;
                     if (chance) {
                         player.setHealth(hp + 2);
