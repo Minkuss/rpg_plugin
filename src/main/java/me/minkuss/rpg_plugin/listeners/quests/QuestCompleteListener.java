@@ -22,11 +22,14 @@ public class QuestCompleteListener implements Listener {
 
         FileConfiguration config = _plugin.getConfig();
         Player player = event.getPlayer();
+        int money = config.getInt("players." + player.getName() + ".money");
 
         config.set("players." + player.getName() + ".quest", null);
+        config.set("players." + player.getName() + ".money", event.getMoney() + money);
         _plugin.saveConfig();
 
         player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Задание вылненно");
+        player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Вы получили - " + event.getMoney() + ". Ваш баланс - " + event.getMoney() + money);
         _plugin.getServer().getPluginManager().callEvent(new GainedExpEvent(player, event.getExp()));
     }
 

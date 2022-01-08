@@ -10,12 +10,14 @@ public class QuestCompleteEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCanceled = false;
 
-    private Player _player;
-    private int _experience;
+    private final Player _player;
+    private final int _experience;
+    private final int _money;
 
-    public QuestCompleteEvent(Player player, int experience) {
+    public QuestCompleteEvent(Player player, int experience, int money) {
         _player = player;
         _experience = experience;
+        _money = money;
     }
 
     public Player getPlayer() {
@@ -25,6 +27,8 @@ public class QuestCompleteEvent extends Event implements Cancellable {
     public int getExp() {
         return _experience;
     }
+
+    public int getMoney() {return _money;}
 
 
     @Override
