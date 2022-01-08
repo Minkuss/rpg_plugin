@@ -85,7 +85,7 @@ public class QuestManager {
         List<String> targets = config.getStringList("kill-quest-targets");
         List<String> params = List.of("kill", targets.get((int)Math.floor(Math.random() * targets.size())));
 
-        int player_level = config.getInt("player." + player_name + ".level");
+        int player_level = config.getInt("players." + player_name + ".level");
         int goal = (int)(Math.floor(Math.random() * player_level) + 5);
 
         config.set("players." + player_name + ".quest.objective", params);
@@ -104,7 +104,7 @@ public class QuestManager {
         String target = targets.get((int)Math.floor(Math.random() * targets.size()));
         List<String> params = List.of("bring", target);
 
-        int player_level = config.getInt("player." + player_name + ".level");
+        int player_level = config.getInt("players." + player_name + ".level");
         int goal = (int)(Math.floor(Math.random() * player_level) + 5);
 
         config.set("players." + player_name + ".quest.objective", params);
