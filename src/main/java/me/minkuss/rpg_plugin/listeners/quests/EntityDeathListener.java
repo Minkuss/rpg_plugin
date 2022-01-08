@@ -52,7 +52,8 @@ public class EntityDeathListener implements Listener {
 
                 if(progress + 1 >= goal) {
                     int exp = config.getInt("exp-info.kill." + params.get(1)) * goal;
-                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, exp));
+                    int money = goal * 10;
+                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, exp, money));
                 }
             }
         }
