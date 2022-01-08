@@ -29,7 +29,6 @@ me\minkuss\rpg_plugin\listeners\portals\PortalEventListener.class
 me\minkuss\rpg_plugin\events\LevelUpEvent.class
 me\minkuss\rpg_plugin\commands\RoleCommand.class
 me\minkuss\rpg_plugin\listeners\GainedExpListener.class
-me\minkuss\rpg_plugin\listeners\PlayerBrakeBlockListener$1.class
 me\minkuss\rpg_plugin\listeners\KnightEventListener.class
 me\minkuss\rpg_plugin\runnables\SneakChecker.class
 me\minkuss\rpg_plugin\listeners\LevelUpListener.class
