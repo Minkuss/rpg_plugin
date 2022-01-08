@@ -17,7 +17,7 @@ public class PortalEventListener implements Listener {
     @EventHandler
     public void OnPlayerPortal(PlayerPortalEvent event) {
         Player player = event.getPlayer();
-        WorldCreator worldCreator = new WorldCreator("playground");
+        WorldCreator worldCreator = new WorldCreator("game");
         World world = _plugin.getServer().createWorld(worldCreator);
         event.setCancelled(true);
         player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Generating world...");
