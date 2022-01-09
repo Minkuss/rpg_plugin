@@ -15,7 +15,7 @@ public class RoleManager {
     }
 
     public boolean hasRole(String player_name, String role_name) {
-        if(_plugin.getConfig().getString("players." + player_name + ".class.name") == null)
+        if(!_plugin.getConfig().contains("players." + player_name + ".class.name"))
             return false;
         else
             return _plugin.getConfig().getString("players." + player_name + ".class.name").equals(role_name);
@@ -28,11 +28,11 @@ public class RoleManager {
         _config.set(class_path, null);
         _config.set(class_path + ".name", "разведчик");
 
-        _config.set(class_path + ".skills.invisibility.opened", level >= 5);
+        _config.set(class_path + ".skills.sneaky-crouch.opened", level >= 5);
+
+        _config.set(class_path + ".skills.invisibility.opened", level >= 10);
         _config.set(class_path + ".skills.invisibility.cd", 60);
         _config.set(class_path + ".skills.invisibility.time-left", 0);
-
-        _config.set(class_path + ".skills.sneaky-crouch.opened", level >= 10);
 
         _config.set(class_path + ".skills.rat.opened", level >= 15);
         _config.set(class_path + ".skills.rat.cd", 60);
