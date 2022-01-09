@@ -28,11 +28,7 @@ public class CommandsManager implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String str, String[] args) {
         for(AbstractCommand command : commands) {
             if(str.equals(command.getName())) {
-                try {
-                    command.execute(_plugin, sender, args);
-                } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                command.execute(_plugin, sender, args);
                 return true;
             }
         }
