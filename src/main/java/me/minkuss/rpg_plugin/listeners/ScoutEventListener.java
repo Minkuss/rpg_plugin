@@ -4,6 +4,7 @@ import me.minkuss.rpg_plugin.RoleManager;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import me.minkuss.rpg_plugin.runnables.CooldownCounter;
 import me.minkuss.rpg_plugin.runnables.SneakChecker;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -55,7 +56,7 @@ public class ScoutEventListener implements Listener {
                 if (is_cool_downed && hp <= 6 && is_skill_opened) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1, false, false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 1, false, false));
-                    player.sendMessage("Активирована способность 'бегу до дому'");
+                    player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Активирована способность 'невидимость'");
 
                     new CooldownCounter(player_name, _plugin, "invisibility").runTaskTimer(_plugin, 0, 20);
                 }
