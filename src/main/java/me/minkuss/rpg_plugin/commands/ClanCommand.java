@@ -3,6 +3,7 @@ package me.minkuss.rpg_plugin.commands;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import me.minkuss.rpg_plugin.events.clans.InviteEvent;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class ClanCommand extends AbstractCommand {
             case "chat" -> Chat(player, plugin);
             case "sethome" -> SetHome(player, plugin, args);
             case "rmhome" -> RemoveHome(player, plugin, args);
-            case "home" -> Home(player, plugin.getConfig());
+            case "home" -> Home(player, plugin.getConfig(), args, plugin);
             case "setmod" -> SetModerator(player, plugin, args);
             case "unmod" -> UnMod(player, plugin, args);
             case "help" -> Help(player);
@@ -465,7 +466,7 @@ public class ClanCommand extends AbstractCommand {
             return;
         }
 
-        if (player.getWorld().getName().equals("hub")) {
+        if (!player.getWorld().getName().equals("game")) {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не можете ставить точку дома здесь");
             return;
         }
@@ -533,30 +534,36 @@ public class ClanCommand extends AbstractCommand {
 
     }
 
-    private void Home(Player player, FileConfiguration config) {
+    private void Home(Player player, FileConfiguration config, String[] args, Rpg_plugin plugin) {
         boolean in_clan = config.contains("players." + player.getName() + ".clan");
         String clan;
-        boolean hasHome;
+        boolean has_home;
 
         if (!in_clan) {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не состоите в клане");
             return;
         } else {
             clan = config.getString("players." + player.getName() + ".clan");
-            hasHome = config.contains("clans." + clan + ".homeName");
+            has_home = config.contains("clans." + clan + ".homeName");
         }
 
-        if (!hasHome) {
+        if (!has_home) {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "У вашего клана нет точки дома");
             return;
         }
 
-        List<Double> coords = config.getDoubleList("clans." + clan + ".clanhomeLoc");
+        List<Double> cords = config.getDoubleList("clans." + clan + ".clanhomeLoc");
+
+        if(args.length == 2 && args[1].equals("tp")) {
+            player.teleport(new Location(plugin.getServer().getWorld("game"), cords.get(0), cords.get(1), cords.get(2)));
+            return;
+        }
+
         String homeName = config.getString("clans." + clan + ".homeName");
         player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Ваш клановый дом - " + homeName + " находится по координатам: ");
-        player.sendMessage(ChatColor.BLUE + "X " + ChatColor.GOLD + coords.get(0));
-        player.sendMessage(ChatColor.BLUE + "Y " + ChatColor.GOLD + coords.get(1));
-        player.sendMessage(ChatColor.BLUE + "Z " + ChatColor.GOLD + coords.get(2));
+        player.sendMessage(ChatColor.BLUE + "X " + ChatColor.GOLD + cords.get(0));
+        player.sendMessage(ChatColor.BLUE + "Y " + ChatColor.GOLD + cords.get(1));
+        player.sendMessage(ChatColor.BLUE + "Z " + ChatColor.GOLD + cords.get(2));
     }
 
     private void SetModerator(Player player, Rpg_plugin plugin, String[] args) {

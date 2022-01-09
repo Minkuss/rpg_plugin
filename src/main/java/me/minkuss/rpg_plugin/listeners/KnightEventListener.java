@@ -34,13 +34,14 @@ public class KnightEventListener implements Listener {
                     entity.setHealth(entity.getHealth() - damage);
                 }
                 if (is_lifesteal_opened) {
-                    boolean chance = Math.floor(Math.random())*100 <= player.getLastDamage() + damage;
+                    boolean chance = Math.floor(Math.random()) * 100 <= player.getLastDamage() + damage;
                     if (chance) {
                         player.setHealth(hp + 2);
                     }
                 }
             }
-        }
 
+        }
     }
+
 }

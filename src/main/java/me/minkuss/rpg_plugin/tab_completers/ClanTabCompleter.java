@@ -23,6 +23,10 @@ public class ClanTabCompleter implements TabCompleter {
                     "unmod", "accept");
         }
 
+        if(args.length == 2 && args[0].equals("home")) {
+            return List.of("tp");
+        }
+
         return null;
     }
 }
