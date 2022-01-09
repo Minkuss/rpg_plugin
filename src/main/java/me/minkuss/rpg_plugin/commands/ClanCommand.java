@@ -693,6 +693,8 @@ public class ClanCommand extends AbstractCommand {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не являетесь создателем клана");
             return;
         }
+
+
     }
 
 }
