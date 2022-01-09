@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class CommandsManager implements CommandExecutor {
     private final AbstractCommand[] commands;
     private final Rpg_plugin _plugin;
@@ -26,7 +28,11 @@ public class CommandsManager implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String str, String[] args) {
         for(AbstractCommand command : commands) {
             if(str.equals(command.getName())) {
-                command.execute(_plugin, sender, args);
+                try {
+                    command.execute(_plugin, sender, args);
+                } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
         }

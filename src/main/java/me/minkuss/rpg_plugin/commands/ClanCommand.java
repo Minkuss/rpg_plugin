@@ -8,7 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +21,7 @@ public class ClanCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(Rpg_plugin plugin, CommandSender sender, String[] args) {
+    public void execute(Rpg_plugin plugin, CommandSender sender, String[] args){
         if (!(sender instanceof Player player)) {
             sender.sendMessage("Эту команду может отправить только игрок.");
             return;
@@ -47,6 +50,7 @@ public class ClanCommand extends AbstractCommand {
             case "setmod" -> SetModerator(player, plugin, args);
             case "unmod" -> UnMod(player, plugin, args);
             case "help" -> Help(player);
+            case "raid" -> Raid(player, plugin, args);
             default -> sender.sendMessage(ChatColor.RED + "Чтобы увидеть перечень всех комманд, напишите /clan help");
         }
     }
@@ -557,25 +561,22 @@ public class ClanCommand extends AbstractCommand {
 
         if(args.length == 2 && args[1].equals("tp")) {
             player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Не двигайтесь и через 10 секунд вас телепортирует");
+            Location first_loc = player.getLocation();
             new BukkitRunnable() {
-                int time = 10;
 
                 @Override
                 public void run() {
-                    if(time == 0) {
+
+                    if (!first_loc.equals(player.getLocation())) {
+                        player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы двинулись, телепортация отменен");
+                    } else {
                         player.teleport(new Location(plugin.getServer().getWorld("game"), cords.get(0), cords.get(1), cords.get(2)));
                         player.sendMessage(ChatColor.GREEN + "[Success] " + ChatColor.GOLD + "Вас успешно телепортировало");
-                        cancel();
                     }
+                    cancel();
 
-                    if (player.getWalkSpeed() != 0) {
-                        player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы двинулись, телепортация отменена");
-                        cancel();
-                    }
-
-                    time -= 5;
                 }
-            }.runTaskTimer(plugin, 0, 100);
+            }.runTaskTimer(plugin, 200, 0);
             return;
         }
 
@@ -676,5 +677,23 @@ public class ClanCommand extends AbstractCommand {
 
         plugin.saveConfig();
     }
+
+    private void Raid(Player player, Rpg_plugin plugin, String[] args) {
+        FileConfiguration config = plugin.getConfig();
+        String clan = config.getString("players." + player.getName() + ".clan");
+        String firstOwner = config.getString("clans." + clan + ".first-owner");
+        boolean inClan = config.contains("players." + player.getName() + ".clan");
+
+        if (!inClan) {
+            player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не состоите в клане");
+            return;
+        }
+
+        if (!player.getName().equals(firstOwner)) {
+            player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не являетесь создателем клана");
+            return;
+        }
+    }
+
 }
 
