@@ -47,8 +47,7 @@ public class PlayerInteractEntityListener implements Listener {
                     player_inventory.removeItem(item);
                     item.setAmount(item.getAmount() - goal);
                     player_inventory.setItemInMainHand(item);
-                    int money = goal * 10;
-                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, 5 * goal, money));
+                    _plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, 5 * goal));
                 }
 
             }

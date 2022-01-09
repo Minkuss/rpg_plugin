@@ -12,12 +12,10 @@ public class QuestCompleteEvent extends Event implements Cancellable {
 
     private final Player _player;
     private final int _experience;
-    private final int _money;
 
-    public QuestCompleteEvent(Player player, int experience, int money) {
+    public QuestCompleteEvent(Player player, int experience) {
         _player = player;
         _experience = experience;
-        _money = money;
     }
 
     public Player getPlayer() {
@@ -27,8 +25,6 @@ public class QuestCompleteEvent extends Event implements Cancellable {
     public int getExp() {
         return _experience;
     }
-
-    public int getMoney() {return _money;}
 
 
     @Override

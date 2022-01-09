@@ -95,7 +95,7 @@ public class QuestCommand extends AbstractCommand {
             player.sendMessage("У вас нет прав на использование этой команды");
 
         if (args.length < 2) {
-            plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, 5 , 0));
+            plugin.getServer().getPluginManager().callEvent(new QuestCompleteEvent(player, 5));
         }
         else if (args.length == 2 && args[1].equals("forclan")){
             config = plugin.getConfig();

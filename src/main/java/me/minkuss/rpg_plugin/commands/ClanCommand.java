@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Random;
@@ -555,7 +556,26 @@ public class ClanCommand extends AbstractCommand {
         List<Double> cords = config.getDoubleList("clans." + clan + ".clanhomeLoc");
 
         if(args.length == 2 && args[1].equals("tp")) {
-            player.teleport(new Location(plugin.getServer().getWorld("game"), cords.get(0), cords.get(1), cords.get(2)));
+            player.sendMessage(ChatColor.GREEN + "[Info] " + ChatColor.GOLD + "Не двигайтесь и через 10 секунд вас телепортирует");
+            new BukkitRunnable() {
+                int time = 10;
+
+                @Override
+                public void run() {
+                    if(time == 0) {
+                        player.teleport(new Location(plugin.getServer().getWorld("game"), cords.get(0), cords.get(1), cords.get(2)));
+                        player.sendMessage(ChatColor.GREEN + "[Success] " + ChatColor.GOLD + "Вас успешно телепортировало");
+                        cancel();
+                    }
+
+                    if (player.getWalkSpeed() != 0) {
+                        player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы двинулись, телепортация отменена");
+                        cancel();
+                    }
+
+                    time -= 5;
+                }
+            }.runTaskTimer(plugin, 0, 100);
             return;
         }
 
