@@ -1,5 +1,6 @@
 package me.minkuss.rpg_plugin;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.minkuss.rpg_plugin.listeners.*;
 import me.minkuss.rpg_plugin.listeners.clans.AsyncPlayerChatEventListener;
 import me.minkuss.rpg_plugin.listeners.clans.InviteEventListener;
@@ -10,6 +11,7 @@ import me.minkuss.rpg_plugin.listeners.quests.PlayerInteractEntityListener;
 import me.minkuss.rpg_plugin.listeners.quests.QuestCompleteListener;
 import me.minkuss.rpg_plugin.tab_completers.*;
 import org.bukkit.Server;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,11 +19,21 @@ public final class Rpg_plugin extends JavaPlugin {
 
     private final PluginManager _plugin_manager = getServer().getPluginManager();
     private final Server _server = getServer();
+    public WorldGuardPlugin worldGuardPlugin;
 
     @Override
     public void onEnable() {
+        worldGuardPlugin = getWorldGuard();
         RegisterEvents();
         SetCommands();
+    }
+
+    private WorldGuardPlugin getWorldGuard() {
+        Plugin plugin = this.getServer().getPluginManager().getPlugin("WorldGuard");
+        if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+            return null;
+        }
+        return (WorldGuardPlugin) plugin;
     }
 
     @Override

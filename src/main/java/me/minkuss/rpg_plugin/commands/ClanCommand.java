@@ -1,11 +1,21 @@
 package me.minkuss.rpg_plugin.commands;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.flags.RegionGroup;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
 import me.minkuss.rpg_plugin.Rpg_plugin;
 import me.minkuss.rpg_plugin.events.clans.InviteEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -13,6 +23,7 @@ import org.bukkit.util.Vector;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class ClanCommand extends AbstractCommand {
@@ -683,6 +694,12 @@ public class ClanCommand extends AbstractCommand {
         String clan = config.getString("players." + player.getName() + ".clan");
         String firstOwner = config.getString("clans." + clan + ".first-owner");
         boolean inClan = config.contains("players." + player.getName() + ".clan");
+        List<String> members = config.getStringList("clans." + clan + ".participants");
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        World world = BukkitAdapter.adapt(Objects.requireNonNull(plugin.getServer().getWorld("game")));
+        RegionManager regions = container.get(world);
+        ProtectedRegion region = regions.getRegion("ship1");
+        Location loc = new Location(plugin.getServer().getWorld("game"), -483.482, 66.0, 279.300);
 
         if (!inClan) {
             player.sendMessage(ChatColor.RED + "[Error] " + ChatColor.GOLD + "Вы не состоите в клане");
@@ -694,7 +711,19 @@ public class ClanCommand extends AbstractCommand {
             return;
         }
 
+        for (String item : members) {
+            region.getMembers().addPlayer(item);
+        }
 
+        region.setFlag(Flags.EXIT, StateFlag.State.DENY);
+        region.setFlag(Flags.EXIT.getRegionGroupFlag(), RegionGroup.MEMBERS);
+        region.setFlag(Flags.ENTRY, StateFlag.State.ALLOW);
+        region.setFlag(Flags.ENTRY.getRegionGroupFlag(), RegionGroup.MEMBERS);
+        region.setFlag(Flags.BLOCK_BREAK, StateFlag.State.DENY);
+        region.setFlag(Flags.BLOCK_BREAK.getRegionGroupFlag(), RegionGroup.MEMBERS);
+        region.setFlag(Flags.BLOCK_PLACE, StateFlag.State.DENY);
+        region.setFlag(Flags.BLOCK_PLACE.getRegionGroupFlag(), RegionGroup.MEMBERS);
+        Objects.requireNonNull(plugin.getServer().getWorld("game")).spawnEntity(loc, EntityType.PILLAGER);
     }
 
 }

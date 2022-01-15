@@ -1,4 +1,5 @@
 me\minkuss\rpg_plugin\commands\ReqCommand.class
+me\minkuss\rpg_plugin\commands\ClanCommand$1.class
 me\minkuss\rpg_plugin\events\quests\QuestCompleteEvent.class
 me\minkuss\rpg_plugin\tab_completers\LevelTabCompleter.class
 me\minkuss\rpg_plugin\tab_completers\QuestTabCompleter.class
